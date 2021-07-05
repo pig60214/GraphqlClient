@@ -1,14 +1,50 @@
 <template>
-    <div class="ratio ratio-1x1">
-        <img alt="Tree House" src="@/assets/TreeHouse.jpg">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          v-for="photo, index in photos"
+          :key="index"
+          :data-bs-slide-to="index"
+          :class="{ active : index == 0 }"
+          :aria-current="index == 0"
+        />
+      </div>
+      <div class="carousel-inner ">
+        <div v-for="photo, index in photos" :key="index" class="carousel-item" :class="{ active : index == 0}">
+          <div class="ratio ratio-1x1" style="background: lightgray;">
+            <img :alt="photo.caption" :src="photo.path">
+          </div>
+          <div class="carousel-caption d-md-block">
+            <h6>{{ photo.caption }}</h6>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import { Photo } from '@/interface/Photo';
 
 export default defineComponent({
   name: 'CalenderHeader',
+  setup() {
+    const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 1' };
+    const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
+    const photos = reactive([photo1, photo2]);
+
+    return { photos };
+  },
 });
 </script>
 
