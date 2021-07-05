@@ -1,3 +1,3 @@
-interface Post {
+export default interface Post {
   title: string
 }

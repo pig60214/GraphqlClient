@@ -20,7 +20,7 @@ import {
   defineComponent,
   reactive,
 } from 'vue';
-import { DateOfCalendar } from '@/interface/DateOfCalendar';
+import DateOfCalendar from '@/interface/DateOfCalendar';
 
 export default defineComponent({
   name: 'CalendarBody',
@@ -33,7 +33,7 @@ export default defineComponent({
       if (startDate.getDay() !== 0) {
         let count = startDate.getDay();
         while (count > 0) {
-          const nullDateOfCalener : DateOfCalendar = { isDisable: true };
+          const nullDateOfCalener = new DateOfCalendar();
           dateList.push(nullDateOfCalener);
           count -= 1;
         }
@@ -47,11 +47,10 @@ export default defineComponent({
       addEmptyDateOfCalendar(date, dateList);
 
       while (date.getMonth() === currentMonth) {
-        const dateOfCalendar : DateOfCalendar = {
-          isDisable: false,
-          date: new Date(date.getTime()),
-          posts: [{ title: 'Test123' }, { title: 'Test123' }],
-        };
+        const dateOfCalendar = new DateOfCalendar();
+        dateOfCalendar.date = new Date(date.getTime());
+        dateOfCalendar.posts = [{ title: 'Test123' }, { title: 'Test123' }];
+
         dateList.push(dateOfCalendar);
 
         date.setDate(date.getDate() + 1);
