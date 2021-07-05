@@ -56,7 +56,6 @@ export default defineComponent({
         dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos:[photo1, photo2] }];
 
         dateList.push(dateOfCalendar);
-        console.log(dateOfCalendar);
 
         date.setDate(date.getDate() + 1);
       }
