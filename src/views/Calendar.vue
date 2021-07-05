@@ -1,10 +1,10 @@
 <template>
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-sm-auto col-md-4">
+            <div class="col-sm-auto col-md-4 align-self-center">
             <calendar-header/>
             </div>
-            <div class="col-sm-auto col-md-8">
+            <div class="col-sm-auto col-md-8 align-self-center">
             <calendar-body/>
             </div>
         </div>
