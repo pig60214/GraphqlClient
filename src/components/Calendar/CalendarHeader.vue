@@ -1,5 +1,5 @@
 <template>
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" :data-bs-interval="bsInterval">
       <div class="carousel-indicators">
         <button
           type="button"
@@ -33,7 +33,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import {
+  computed,
+  defineComponent,
+  reactive,
+  ref,
+} from 'vue';
 import { Photo } from '@/interface/Photo';
 
 export default defineComponent({
@@ -42,8 +47,10 @@ export default defineComponent({
     const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 1' };
     const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
     const photos = reactive([photo1, photo2]);
+    const autoPlay = ref(false);
+    const bsInterval = computed(() => (autoPlay.value ? 5000 : false));
 
-    return { photos };
+    return { photos, bsInterval };
   },
 });
 </script>
