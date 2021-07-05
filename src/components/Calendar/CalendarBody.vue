@@ -21,6 +21,7 @@ import {
   reactive,
 } from 'vue';
 import DateOfCalendar from '@/interface/DateOfCalendar';
+import Photo from '@/interface/Photo';
 
 export default defineComponent({
   name: 'CalendarBody',
@@ -47,11 +48,15 @@ export default defineComponent({
       addEmptyDateOfCalendar(date, dateList);
 
       while (date.getMonth() === currentMonth) {
+        const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 1' };
+        const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
+
         const dateOfCalendar = new DateOfCalendar();
         dateOfCalendar.date = new Date(date.getTime());
-        dateOfCalendar.posts = [{ title: 'Test123' }, { title: 'Test123' }];
+        dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos:[photo1, photo2] }];
 
         dateList.push(dateOfCalendar);
+        console.log(dateOfCalendar);
 
         date.setDate(date.getDate() + 1);
       }
