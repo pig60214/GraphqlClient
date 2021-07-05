@@ -1,3 +1,3 @@
 interface Post {
-  
+  title: string
 }

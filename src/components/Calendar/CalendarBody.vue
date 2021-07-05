@@ -1,18 +1,17 @@
 <template>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col" v-for="day, index in dayList" :key="index">{{ day }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="week, index in weekListOfCurrentMonth" :key="index">
-        <th v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate">
-          {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
-        </th>
-      </tr>
-    </tbody>
-  </table>
+<div class="container" style="padding-right: 0px; padding-left: 0px;">
+  <div class="row">
+    <div class="col" v-for="day, index in dayList" :key="index" style="width: 14.2857142857%">{{ day }}</div>
+  </div>
+  <div class="row" v-for="week, index in weekListOfCurrentMonth" :key="index">
+      <div class="col" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" style="width: 14.2857142857%">
+        {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
+        <span class="badge bg-success w-100" v-for="post, index in dateOfCalendar.posts" :key="index">
+          {{ post.title }}
+        </span>
+      </div>
+  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -51,6 +50,7 @@ export default defineComponent({
         const dateOfCalendar : DateOfCalendar = {
           isDisable: false,
           date: new Date(date.getTime()),
+          posts: [{ title: 'Test123' }, { title: 'Test123' }],
         };
         dateList.push(dateOfCalendar);
 
