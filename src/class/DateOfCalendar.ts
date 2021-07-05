@@ -1,5 +1,5 @@
-import Post from './Post';
-import Photo from './Photo';
+import Post from '../interface/Post';
+import Photo from '../interface/Photo';
 
 export default class DateOfCalendar {
   date? : Date

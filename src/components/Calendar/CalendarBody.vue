@@ -20,7 +20,7 @@ import {
   defineComponent,
   reactive,
 } from 'vue';
-import DateOfCalendar from '@/interface/DateOfCalendar';
+import DateOfCalendar from '@/class/DateOfCalendar';
 import Photo from '@/interface/Photo';
 
 export default defineComponent({
@@ -53,7 +53,7 @@ export default defineComponent({
 
         const dateOfCalendar = new DateOfCalendar();
         dateOfCalendar.date = new Date(date.getTime());
-        dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos:[photo1, photo2] }];
+        dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos: [photo1, photo2] }];
 
         dateList.push(dateOfCalendar);
 
