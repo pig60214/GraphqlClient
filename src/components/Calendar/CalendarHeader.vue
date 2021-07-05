@@ -39,7 +39,7 @@ import {
   reactive,
   ref,
 } from 'vue';
-import { Photo } from '@/interface/Photo';
+import Photo from '@/interface/Photo';
 
 export default defineComponent({
   name: 'CalenderHeader',
