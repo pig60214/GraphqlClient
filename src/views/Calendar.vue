@@ -5,7 +5,7 @@
             Calender Header
             </div>
             <div class="col-sm-auto col-md-8">
-            Calender Body
+            <calendar-body/>
             </div>
         </div>
     </div>
@@ -13,8 +13,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import CalendarBody from '../components/Calendar/CalendarBody.vue';
 
 export default defineComponent({
   name: 'Calender',
+  components: {
+    CalendarBody,
+  },
 });
 </script>
