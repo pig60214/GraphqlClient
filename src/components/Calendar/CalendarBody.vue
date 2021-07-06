@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <div class="row">
+  <div id="calendarBody" class="container">
+    <div class="row my-3">
       <calendar-body-month/>
     </div>
-    <div class="row">
+    <div class="row mb-3">
       <calendar-body-date/>
     </div>
   </div>

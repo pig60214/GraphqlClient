@@ -1,10 +1,10 @@
 <template>
-<div class="container" style="padding-right: 0px; padding-left: 0px;">
+<div id="calendarBodyDate" class="container px-0">
   <div class="row">
-    <div class="col px-0" v-for="day, index in dayList" :key="index" style="width: 14.2857142857%">{{ day }}</div>
+    <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
   </div>
   <div class="row" v-for="week, index in weekListOfCurrentMonth" :key="index">
-      <div class="col px-1" style="width: 14.2857142857%" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" @click="chooseDate(dateOfCalendar)">
+      <div class="col px-1 w-1-out-of-7" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" @click="chooseDate(dateOfCalendar)">
         {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
         <span class="badge bg-vue-green w-100 badge-text-truncate px-0" v-for="post, index in dateOfCalendar.posts" :key="index">
           {{ post.title }}
@@ -114,5 +114,9 @@ export default defineComponent({
 
 .bg-vue-green {
   background-color: #42b983;
+}
+
+.w-1-out-of-7 {
+  width: 14.2857142857%;
 }
 </style>

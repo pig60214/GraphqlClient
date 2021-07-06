@@ -1,16 +1,16 @@
 <template>
-  <div id="monthCarousel" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-interval="false">
+  <div id="calendarBodyMonth" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-interval="false">
     <div class="carousel-inner ">
       <div v-for="month, index in monthList" :key="index" class="carousel-item" :class="{ active : index == currentMonth.month }">
         <h1>{{ month }}</h1>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#monthCarousel" data-bs-slide="prev" @click="currentMonth.addMonth(-1)">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <button class="carousel-control-prev" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="prev" @click="currentMonth.addMonth(-1)">
+      <span class="carousel-control-prev-icon w-50 h-50" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#monthCarousel" data-bs-slide="next" @click="currentMonth.addMonth(1)">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <button class="carousel-control-next" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="next" @click="currentMonth.addMonth(1)">
+      <span class="carousel-control-next-icon w-50 h-50" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
   </div>
