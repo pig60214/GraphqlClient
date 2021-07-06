@@ -22,7 +22,7 @@ import {
 } from 'vue';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import Photo from '@/interface/Photo';
-import { useStore } from 'vuex';
+import { useStore } from '@/store';
 
 export default defineComponent({
   name: 'CalendarBodyDate',
@@ -87,7 +87,8 @@ export default defineComponent({
     });
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
-    store.state.currentDate = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
+    const todayDateOfCalendar = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
+    store.state.currentDate = todayDateOfCalendar !== undefined ? todayDateOfCalendar : new DateOfCalendar();
 
     return { dayList, weekListOfCurrentMonth, chooseDate };
   },

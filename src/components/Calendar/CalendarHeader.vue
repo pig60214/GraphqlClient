@@ -38,7 +38,7 @@ import {
   ref,
   watch,
 } from 'vue';
-import { useStore } from 'vuex';
+import { useStore } from '@/store';
 
 export default defineComponent({
   name: 'CalenderHeader',
