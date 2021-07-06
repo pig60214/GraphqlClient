@@ -28,9 +28,6 @@ export default defineComponent({
   name: 'CalendarBodyDate',
   setup() {
     const store = useStore();
-    const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
 
     const addEmptyDateOfCalendar = (startDate: Date, dateList: Array<DateOfCalendar>) => {
       if (startDate.getDay() !== 0) {
@@ -49,11 +46,11 @@ export default defineComponent({
 
     const dateListOfCurrentMonth = computed(() => {
       const dateList = new Array<DateOfCalendar>();
-      const date = new Date(currentYear, currentMonth, 1);
+      const date = new Date(store.state.currentMonth.year, store.state.currentMonth.month, 1);
 
       addEmptyDateOfCalendar(date, dateList);
       let c = 0;
-      while (date.getMonth() === currentMonth) {
+      while (date.getMonth() === store.state.currentMonth.month) {
         const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: date.getDate().toString() };
         const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
 
@@ -87,6 +84,7 @@ export default defineComponent({
     });
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
+    const today = new Date();
     const todayDateOfCalendar = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
     store.state.currentDate = todayDateOfCalendar !== undefined ? todayDateOfCalendar : new DateOfCalendar();
 
