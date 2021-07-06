@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import CalendarHeader from '../components/Calendar/CalendarHeader.vue';
+import CalendarHeader from '../components/Calendar/CalenderHeaderAutoPlayControl.vue';
 import CalendarBody from '../components/Calendar/CalendarBody.vue';
 
 export default defineComponent({
