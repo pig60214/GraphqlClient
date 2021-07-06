@@ -2,7 +2,7 @@
   <div v-if="autoPlay" id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <calendar-header/>
   </div>
-  <div v-else id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" :data-bs-interval="false">
+  <div v-else id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
     <calendar-header/>
   </div>
 </template>
