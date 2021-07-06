@@ -39,14 +39,13 @@ import {
   reactive,
   ref,
 } from 'vue';
-import Photo from '@/interface/Photo';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'CalenderHeader',
   setup() {
-    const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 1' };
-    const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
-    const photos = reactive([photo1, photo2]);
+    const store = useStore();
+    const photos = reactive(computed(() => store.state.currentDay.photos));
     const autoPlay = ref(false);
     const bsInterval = computed(() => (autoPlay.value ? 5000 : false));
 

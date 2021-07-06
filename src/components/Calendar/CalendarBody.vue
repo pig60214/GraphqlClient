@@ -22,10 +22,12 @@ import {
 } from 'vue';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import Photo from '@/interface/Photo';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'CalendarBody',
   setup() {
+    const store = useStore();
     const today = new Date();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
@@ -48,7 +50,7 @@ export default defineComponent({
       addEmptyDateOfCalendar(date, dateList);
 
       while (date.getMonth() === currentMonth) {
-        const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 1' };
+        const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: date.getDate().toString() };
         const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
 
         const dateOfCalendar = new DateOfCalendar();
@@ -74,6 +76,8 @@ export default defineComponent({
       return weekList;
     });
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
+
+    store.state.currentDay = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
 
     return { dayList, weekListOfCurrentMonth };
   },
