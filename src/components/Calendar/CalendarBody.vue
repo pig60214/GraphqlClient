@@ -1,12 +1,12 @@
 <template>
 <div class="container" style="padding-right: 0px; padding-left: 0px;">
   <div class="row">
-    <div class="col" v-for="day, index in dayList" :key="index" style="width: 14.2857142857%">{{ day }}</div>
+    <div class="col px-0" v-for="day, index in dayList" :key="index" style="width: 14.2857142857%">{{ day }}</div>
   </div>
   <div class="row" v-for="week, index in weekListOfCurrentMonth" :key="index">
-      <div class="col" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" style="width: 14.2857142857%" @click="chooseDate(dateOfCalendar)">
+      <div class="col px-1" style="width: 14.2857142857%" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" @click="chooseDate(dateOfCalendar)">
         {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
-        <span class="badge bg-success w-100" v-for="post, index in dateOfCalendar.posts" :key="index">
+        <span class="badge bg-vue-green w-100 badge-text-truncate px-0" v-for="post, index in dateOfCalendar.posts" :key="index">
           {{ post.title }}
         </span>
       </div>
@@ -60,10 +60,10 @@ export default defineComponent({
         const dateOfCalendar = new DateOfCalendar();
         dateOfCalendar.date = new Date(date.getTime());
         if (c === 0) {
-          dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos: [photo1, photo2] }];
+          dateOfCalendar.posts = [{ title: 'Test1234567', photos: [photo1, photo2] }, { title: 'Test1234567', photos: [photo1, photo2] }];
           c = 1;
         } else {
-          dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1] }, { title: 'Test123', photos: [photo2] }];
+          dateOfCalendar.posts = [{ title: 'Test1234567', photos: [photo1] }, { title: 'Test1234567', photos: [photo2] }];
           c = 0;
         }
 
@@ -93,3 +93,14 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.badge-text-truncate {
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.bg-vue-green {
+  background-color: #42b983;
+}
+</style>

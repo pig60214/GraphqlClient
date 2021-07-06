@@ -12,7 +12,7 @@
   </div>
   <div class="carousel-inner ">
     <div v-for="photo, index in photos" :key="index" class="carousel-item" :class="{ active : index == currentPhotoIndex }">
-      <div class="ratio ratio-1x1" style="background: lightgray;">
+      <div class="ratio ratio-1x1">
         <img :alt="photo.caption" :src="photo.path">
       </div>
       <div class="carousel-caption d-md-block">
