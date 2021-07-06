@@ -29,13 +29,24 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const addEmptyDateOfCalendar = (startDate: Date, dateList: Array<DateOfCalendar>) => {
+    const addEmptyDateOfCalendarAtBeginning = (startDate: Date, dateList: Array<DateOfCalendar>) => {
       if (startDate.getDay() !== 0) {
         let count = startDate.getDay();
         while (count > 0) {
           const nullDateOfCalener = new DateOfCalendar();
           dateList.push(nullDateOfCalener);
           count -= 1;
+        }
+      }
+    };
+
+    const addEmptyDateOfCalendarAtEnd = (startDate: Date, dateList: Array<DateOfCalendar>) => {
+      if (startDate.getDay() !== 6) {
+        let count = startDate.getDay();
+        while (count < 7) {
+          const nullDateOfCalener = new DateOfCalendar();
+          dateList.push(nullDateOfCalener);
+          count += 1;
         }
       }
     };
@@ -48,7 +59,7 @@ export default defineComponent({
       const dateList = new Array<DateOfCalendar>();
       const date = new Date(store.state.currentMonth.year, store.state.currentMonth.month, 1);
 
-      addEmptyDateOfCalendar(date, dateList);
+      addEmptyDateOfCalendarAtBeginning(date, dateList);
       let c = 0;
       while (date.getMonth() === store.state.currentMonth.month) {
         const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: date.getDate().toString() };
@@ -68,6 +79,8 @@ export default defineComponent({
 
         date.setDate(date.getDate() + 1);
       }
+
+      addEmptyDateOfCalendarAtEnd(date, dateList);
 
       return dateList;
     });
