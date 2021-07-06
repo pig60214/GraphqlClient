@@ -7,12 +7,12 @@
           v-for="photo, index in photos"
           :key="index"
           :data-bs-slide-to="index"
-          :class="{ active : index == 0 }"
-          :aria-current="index == 0"
+          :class="{ active : index == currentPhotoIndex }"
+          @click="currentPhotoIndex = index"
         />
       </div>
       <div class="carousel-inner ">
-        <div v-for="photo, index in photos" :key="index" class="carousel-item" :class="{ active : index == 0}">
+        <div v-for="photo, index in photos" :key="index" class="carousel-item" :class="{ active : index == currentPhotoIndex }">
           <div class="ratio ratio-1x1" style="background: lightgray;">
             <img :alt="photo.caption" :src="photo.path">
           </div>
@@ -38,6 +38,7 @@ import {
   defineComponent,
   reactive,
   ref,
+  watch,
 } from 'vue';
 import { useStore } from 'vuex';
 
@@ -45,11 +46,19 @@ export default defineComponent({
   name: 'CalenderHeader',
   setup() {
     const store = useStore();
-    const photos = reactive(computed(() => store.state.currentDay.photos));
+    const photos = reactive(computed(() => store.state.currentDate.photos));
     const autoPlay = ref(false);
     const bsInterval = computed(() => (autoPlay.value ? 5000 : false));
+    const currentPhotoIndex = ref(0);
 
-    return { photos, bsInterval };
+    watch(
+      () => store.state.currentDate,
+      () => {
+        currentPhotoIndex.value = 0;
+      },
+    );
+
+    return { photos, bsInterval, currentPhotoIndex };
   },
 });
 </script>

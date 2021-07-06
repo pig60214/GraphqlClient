@@ -44,7 +44,7 @@ export default defineComponent({
     };
 
     const chooseDate = (dateOfCalendar: DateOfCalendar) => {
-      store.state.currentDay = dateOfCalendar;
+      store.state.currentDate = dateOfCalendar;
     };
 
     const dateListOfCurrentMonth = computed(() => {
@@ -52,14 +52,20 @@ export default defineComponent({
       const date = new Date(currentYear, currentMonth, 1);
 
       addEmptyDateOfCalendar(date, dateList);
-
+      let c = 0;
       while (date.getMonth() === currentMonth) {
         const photo1 : Photo = { path: 'https://i.imgur.com/WvF2XFu_d.webp?maxwidth=760&fidelity=grand', caption: date.getDate().toString() };
         const photo2 : Photo = { path: 'https://i.imgur.com/O6usdNx_d.webp?maxwidth=760&fidelity=grand', caption: 'Tree House 2' };
 
         const dateOfCalendar = new DateOfCalendar();
         dateOfCalendar.date = new Date(date.getTime());
-        dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos: [photo1, photo2] }];
+        if (c === 0) {
+          dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1, photo2] }, { title: 'Test123', photos: [photo1, photo2] }];
+          c = 1;
+        } else {
+          dateOfCalendar.posts = [{ title: 'Test123', photos: [photo1] }, { title: 'Test123', photos: [photo2] }];
+          c = 0;
+        }
 
         dateList.push(dateOfCalendar);
 
@@ -81,7 +87,7 @@ export default defineComponent({
     });
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
-    store.state.currentDay = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
+    store.state.currentDate = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
 
     return { dayList, weekListOfCurrentMonth, chooseDate };
   },

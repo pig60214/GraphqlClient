@@ -3,7 +3,7 @@ import DateOfCalendar from '@/class/DateOfCalendar';
 
 export default createStore({
   state: {
-    currentDay: new DateOfCalendar(),
+    currentDate: new DateOfCalendar(),
   },
   mutations: {
   },
