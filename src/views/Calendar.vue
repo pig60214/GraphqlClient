@@ -1,10 +1,10 @@
 <template>
-  <div class="container rounded-3 shadow bg-white" >
-    <div class="row justify-content-md-center">
+  <div class="container rounded-3 shadow" >
+    <div class="row justify-content-md-center bg-vue-blue">
       <div class="col-xs-auto col-md-4 align-self-center">
         <calendar-header/>
       </div>
-      <div class="col-xs-auto col-md-8 align-self-center">
+      <div class="col-xs-auto col-md-8 align-self-center bg-white">
         <calendar-body/>
       </div>
     </div>
@@ -24,3 +24,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.bg-vue-blue {
+  background-color: #2c3e50;
+}
+</style>
