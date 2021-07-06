@@ -4,7 +4,7 @@
     <div class="col" v-for="day, index in dayList" :key="index" style="width: 14.2857142857%">{{ day }}</div>
   </div>
   <div class="row" v-for="week, index in weekListOfCurrentMonth" :key="index">
-      <div class="col" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" style="width: 14.2857142857%">
+      <div class="col" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" style="width: 14.2857142857%" @click="chooseDate(dateOfCalendar)">
         {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
         <span class="badge bg-success w-100" v-for="post, index in dateOfCalendar.posts" :key="index">
           {{ post.title }}
@@ -43,6 +43,10 @@ export default defineComponent({
       }
     };
 
+    const chooseDate = (dateOfCalendar: DateOfCalendar) => {
+      store.state.currentDay = dateOfCalendar;
+    };
+
     const dateListOfCurrentMonth = computed(() => {
       const dateList = new Array<DateOfCalendar>();
       const date = new Date(currentYear, currentMonth, 1);
@@ -79,7 +83,7 @@ export default defineComponent({
 
     store.state.currentDay = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
 
-    return { dayList, weekListOfCurrentMonth };
+    return { dayList, weekListOfCurrentMonth, chooseDate };
   },
 });
 </script>
