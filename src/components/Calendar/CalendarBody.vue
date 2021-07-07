@@ -4,19 +4,19 @@
       <calendar-body-month/>
     </div>
     <div class="row mb-3">
-      <calendar-body-date/>
+      <calendar-body-dates/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import CalendarBodyDate from './CalendarBodyDate.vue';
+import CalendarBodyDates from './CalendarBodyDates.vue';
 import CalendarBodyMonth from './CalendarBodyMonth.vue';
 
 export default defineComponent({
   name: 'CalendarBody',
-  components: { CalendarBodyDate, CalendarBodyMonth },
+  components: { CalendarBodyDates, CalendarBodyMonth },
   setup() {
     return {};
   },
