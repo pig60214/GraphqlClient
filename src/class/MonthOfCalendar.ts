@@ -1,5 +1,6 @@
 export default class MonthOfCalendar {
   year: number
+
   month: number
 
   addMonth(month : number) : void {
