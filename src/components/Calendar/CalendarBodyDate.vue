@@ -107,13 +107,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "~@/scss/colors";
+
 .badge-text-truncate {
   overflow: hidden;
   vertical-align: bottom;
-}
-
-.bg-vue-green {
-  background-color: #42b983;
 }
 
 .w-1-out-of-7 {

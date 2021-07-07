@@ -26,7 +26,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.bg-vue-blue {
-  background-color: #2c3e50;
-}
+@import "~@/scss/colors";
 </style>
