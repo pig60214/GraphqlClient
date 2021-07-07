@@ -13,4 +13,11 @@ export default class DateOfCalendar {
   get photos(): (Photo | undefined)[] | undefined {
     return this.posts?.map((post) => post.photos).flat();
   }
+
+  equals(another: DateOfCalendar): boolean {
+    if (this.isDisable && another.isDisable) {
+      return true;
+    }
+    return this.date?.getTime() === another.date?.getTime();
+  }
 }

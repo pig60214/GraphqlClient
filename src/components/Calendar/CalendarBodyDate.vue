@@ -22,6 +22,7 @@
 import { computed, defineComponent } from 'vue';
 import { useStore } from '@/store';
 import DateOfCalendar from '@/class/DateOfCalendar';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'CalendarBodyDate',
@@ -34,9 +35,15 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
+    const router = useRouter();
 
     const chooseDate = () => {
-      store.state.currentDate = props.dateOfCalendar !== undefined ? props.dateOfCalendar : new DateOfCalendar();
+      if (props.dateOfCalendar !== undefined && store.state.currentDate.equals(props.dateOfCalendar)) {
+        router.push({ name: 'DateDetail' });
+      }
+      if (props.dateOfCalendar !== undefined && !store.state.currentDate.equals(props.dateOfCalendar)) {
+        store.state.currentDate = props.dateOfCalendar;
+      }
     };
 
     const isChosedDate = computed(() => {

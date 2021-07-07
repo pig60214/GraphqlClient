@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
 import Calendar from '../views/Calendar.vue';
+import DateDetail from '../views/DateDetail.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/calendar',
     name: 'Calendar',
     component: Calendar,
+  },
+  {
+    path: '/date-detail',
+    name: 'DateDetail',
+    component: DateDetail,
   },
 ];
 
