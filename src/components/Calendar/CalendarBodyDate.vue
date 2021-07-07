@@ -4,9 +4,21 @@
     <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
   </div>
   <div class="row" v-for="week, index in weekListOfCurrentMonth" :key="index">
-      <div class="col px-1 w-1-out-of-7" v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" @click="chooseDate(dateOfCalendar)">
-        {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
-        <span class="badge bg-vue-green w-100 badge-text-truncate px-0" v-for="post, index in dateOfCalendar.posts" :key="index">
+      <div
+        class="col px-1 w-1-out-of-7 mb-1"
+        v-for="dateOfCalendar, indexOfDate in week"
+        :key="indexOfDate" @click="chooseDate(dateOfCalendar)"
+        :class="{ 'bg-success text-white rounded-3': isChosedDate(dateOfCalendar) }"
+      >
+        <span :class="{ 'fw-bold': isChosedDate(dateOfCalendar) }">
+          {{dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate()}}
+        </span>
+        <span
+          class="badge w-100 badge-text-truncate px-0"
+          v-for="post, index in dateOfCalendar.posts"
+          :key="index"
+          :class="{ 'bg-vue-green': !isChosedDate(dateOfCalendar) }"
+        >
           {{ post.title }}
         </span>
       </div>
@@ -101,7 +113,17 @@ export default defineComponent({
     const todayDateOfCalendar = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
     store.state.currentDate = todayDateOfCalendar !== undefined ? todayDateOfCalendar : new DateOfCalendar();
 
-    return { dayList, weekListOfCurrentMonth, chooseDate };
+    const isChosedDate = (dateOfCalendar: DateOfCalendar) => {
+      const currentDate = store.state.currentDate.date?.getDate();
+      return !dateOfCalendar.isDisable && currentDate === dateOfCalendar.date?.getDate();
+    };
+
+    return {
+      dayList,
+      weekListOfCurrentMonth,
+      chooseDate,
+      isChosedDate,
+    };
   },
 });
 </script>
