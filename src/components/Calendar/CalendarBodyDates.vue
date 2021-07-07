@@ -48,10 +48,6 @@ export default defineComponent({
       }
     };
 
-    const chooseDate = (dateOfCalendar: DateOfCalendar) => {
-      store.state.currentDate = dateOfCalendar;
-    };
-
     const dateListOfCurrentMonth = computed(() => {
       const dateList = new Array<DateOfCalendar>();
       const date = new Date(store.state.currentMonth.year, store.state.currentMonth.month, 1);
@@ -98,16 +94,9 @@ export default defineComponent({
     const todayDateOfCalendar = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
     store.state.currentDate = todayDateOfCalendar !== undefined ? todayDateOfCalendar : new DateOfCalendar();
 
-    const isChosedDate = (dateOfCalendar: DateOfCalendar) => {
-      const currentDate = store.state.currentDate.date?.getDate();
-      return !dateOfCalendar.isDisable && currentDate === dateOfCalendar.date?.getDate();
-    };
-
     return {
       dayList,
       weekListOfCurrentMonth,
-      chooseDate,
-      isChosedDate,
     };
   },
 });
