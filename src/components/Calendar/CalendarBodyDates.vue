@@ -18,6 +18,8 @@ import {
 import DateOfCalendar from '@/class/DateOfCalendar';
 import Photo from '@/interface/Photo';
 import { useStore } from '@/store';
+import { useQuery } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
 import CalendarBodyDate from './CalendarBodyDate.vue';
 
 export default defineComponent({
@@ -93,6 +95,20 @@ export default defineComponent({
     const today = new Date();
     const todayDateOfCalendar = dateListOfCurrentMonth.value.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
     store.state.currentDate = todayDateOfCalendar !== undefined ? todayDateOfCalendar : new DateOfCalendar();
+
+    const { result: posts } = useQuery(gql`
+      query ($postsQueryInput: PostsQueryInput!){
+        posts(postsQueryInput: $postsQueryInput){
+          id,
+          title,
+        }
+      }
+    `, {
+      postsQueryInput: {
+        from: '2021/06/1',
+        to: '2021/06/15',
+      },
+    });
 
     return {
       dayList,
