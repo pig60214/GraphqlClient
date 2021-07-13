@@ -59,13 +59,14 @@ export default defineComponent({
 });
 </script>
 
-<style lang="sass" scoped>
-  img
-    max-height: 100%
-    max-width: 100%
-    width: auto
-    height: auto
-    margin: auto
-    right: 0
-    bottom: 0
+<style lang="scss" scoped>
+img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  margin: auto;
+  right: 0;
+  bottom: 0;
+}
 </style>
