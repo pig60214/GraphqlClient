@@ -49,7 +49,6 @@ export default class MonthOfCalendar {
       weekList.push(this.dateOfCalendarList.slice(start, start + 7));
       start += 7;
     }
-    console.log(this.dateOfCalendarList);
     return weekList;
   }
 
