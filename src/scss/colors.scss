@@ -1,5 +1,6 @@
 $vue-blue: #2c3e50;
 $vue-green: #42b983;
+$vue-gray-blue: #e7eaf5;
 
 .bg-vue-blue {
   background-color: $vue-blue;
@@ -7,6 +8,14 @@ $vue-green: #42b983;
 
 .bg-vue-green {
   background-color: $vue-green;
+}
+
+.bg-gray-blue {
+  background-color: $vue-gray-blue;
+}
+
+.text-vue-blue {
+  color: $vue-blue;
 }
 
 .text-vue-green {

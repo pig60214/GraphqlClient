@@ -3,13 +3,13 @@
     class="col px-1 w-1-out-of-7 pb-1"
     style="min-height: 5em"
     @click="chooseDate"
-    :class="{ 'bg-success text-white rounded-3': isChosedDate }"
+    :class="{ 'bg-vue-blue text-white rounded-3': isChosedDate }"
   >
     <span>
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
     <span
-      class="badge w-100 badge-text-truncate px-0 ps-2 text-start bg-vue-green"
+      class="badge w-100 badge-text-truncate px-0 ps-2 text-start bg-gray-blue text-vue-blue"
       v-for="post, index in postsToDisplay"
       :key="index"
     >
@@ -18,7 +18,7 @@
     <span
       class="badge w-100 badge-text-truncate px-0 ps-2 text-start"
       v-if="dateOfCalendar.posts && dateOfCalendar.posts.length > 3"
-      :class="isChosedDate ? 'bg-success' : 'bg-white text-dark'"
+      :class="isChosedDate ? 'bg-vue-blue' : 'bg-white text-vue-blue'"
     >
       ...
     </span>
