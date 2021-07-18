@@ -24,7 +24,15 @@
               </div>
               <div id="posts" class="col-7 border-start">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item text-truncate text-start ps-2 pe-0 py-1" v-for="post, index in currentDate.posts" :key="index"> {{ post.title }} </li>
+                  <li
+                    class="list-group-item list-group-item-action text-truncate text-start ps-2 pe-0 py-1"
+                    v-for="post, index in currentDate.posts"
+                    :key="index"
+                    :class="{ 'list-group-item-primary': index === currentPostIndex }"
+                    @click="currentPostIndex = index"
+                  >
+                    {{ post.title }}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -53,18 +61,14 @@ export default defineComponent({
     const store = useStore();
     const currentDate = ref(store.state.currentDate);
     const { posts } = store.state.currentDate;
-    const post = (posts) ? posts[0] : null;
-    const currentPost = ref(post);
 
-    const photos = computed(() => {
-      if (currentPost.value) {
-        return currentPost.value.photos;
-      }
-      return null;
-    });
+    const currentPostIndex = ref(0);
+    const currentPost = computed(() => (posts) ? posts[currentPostIndex.value] : null);
+    const photos = computed(() => (currentPost.value) ? currentPost.value.photos : null);
 
     return {
       currentDate,
+      currentPostIndex,
       monthList,
       weekList,
       photos,
