@@ -5,35 +5,37 @@
         <PhotoCarousel :carouselId="'DateDetailHeader'" :photos="photos" />
       </div>
       <div class="col-xs-auto col-md-8 px-0 align-self-center">
-        <div class="card">
-          <div class="card-header shadow-sm">
-            <p class="my-1"> {{ weekList[currentDate.date.getDay()] }} </p>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div id="date" class="col-5 align-self-center">
-                <div class="row">
-                  <div class="col-6 px-1 text-end">
-                    <p class="m-0" style="font-size: 3rem"> {{ currentDate.date.getDate() }} </p>
-                  </div>
-                  <div class="col-6 px-1 text-start align-self-center">
-                    <p class="m-0" style="font-size: 1.2rem"> {{ monthList[currentDate.date.getMonth()] }} </p>
-                    <p class="m-0" style="font-size: 1.2rem"> {{ currentDate.date.getFullYear() }} </p>
+        <div class="col-md-9 m-auto">
+          <div class="card">
+            <div class="card-header shadow-sm">
+              <p class="my-1"> {{ weekList[currentDate.date.getDay()] }} </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div id="date" class="col-5 align-self-center">
+                  <div class="row">
+                    <div class="col-6 px-1 text-end">
+                      <p class="m-0" style="font-size: 3rem"> {{ currentDate.date.getDate() }} </p>
+                    </div>
+                    <div class="col-6 px-1 text-start align-self-center">
+                      <p class="m-0" style="font-size: 1.2rem"> {{ monthList[currentDate.date.getMonth()] }} </p>
+                      <p class="m-0" style="font-size: 1.2rem"> {{ currentDate.date.getFullYear() }} </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div id="posts" class="col-7 border-start">
-                <ul class="list-group list-group-flush">
-                  <li
-                    class="list-group-item list-group-item-action text-truncate text-start ps-2 pe-0 py-1"
-                    v-for="post, index in currentDate.posts"
-                    :key="index"
-                    :class="{ 'list-group-item-primary': index === currentPostIndex }"
-                    @click="currentPostIndex = index"
-                  >
-                    {{ post.title }}
-                  </li>
-                </ul>
+                <div id="posts" class="col-7 border-start">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item list-group-item-action text-truncate text-start ps-2 pe-0 py-1"
+                      v-for="post, index in currentDate.posts"
+                      :key="index"
+                      :class="{ 'list-group-item-primary': index === currentPostIndex }"
+                      @click="currentPostIndex = index"
+                    >
+                      {{ post.title }}
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
