@@ -13,6 +13,7 @@ module.exports = {
   },
   rules: {
     'arrow-parens': 'off',
+    'no-confusing-arrow': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-param-reassign': 'off',
