@@ -71,7 +71,7 @@ export default class MonthOfCalendar {
   }
 
   private addEmptyDateOfCalendarAtEnd = (startDate: Date, dateList: Array<DateOfCalendar>) => {
-    if (startDate.getDay() !== 6) {
+    if (startDate.getDay() !== 7) {
       let count = startDate.getDay();
       while (count < 7) {
         const nullDateOfCalener = new DateOfCalendar();
