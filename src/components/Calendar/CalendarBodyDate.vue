@@ -1,19 +1,26 @@
 <template>
   <div
-    class="col px-1 w-1-out-of-7 mb-1"
+    class="col px-1 w-1-out-of-7 pb-1"
+    style="min-height: 5em"
     @click="chooseDate"
     :class="{ 'bg-success text-white rounded-3': isChosedDate }"
   >
-    <span :class="{ 'fw-bold': isChosedDate }">
+    <span>
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
     <span
-      class="badge w-100 badge-text-truncate px-0"
-      v-for="post, index in dateOfCalendar.posts"
+      class="badge w-100 badge-text-truncate px-0 ps-2 text-start bg-vue-green"
+      v-for="post, index in postsToDisplay"
       :key="index"
-      :class="{ 'bg-vue-green': !isChosedDate }"
     >
       {{ post.title }}
+    </span>
+    <span
+      class="badge w-100 badge-text-truncate px-0 ps-2 text-start"
+      v-if="dateOfCalendar.posts && dateOfCalendar.posts.length > 3"
+      :class="isChosedDate ? 'bg-success' : 'bg-white text-dark'"
+    >
+      ...
     </span>
   </div>
 </template>
@@ -51,7 +58,20 @@ export default defineComponent({
       return !props.dateOfCalendar.isDisable && currentDate === props.dateOfCalendar.date?.getDate();
     });
 
-    return { chooseDate, isChosedDate, ...toRefs(props) };
+    const postsToDisplay = computed(() => {
+      const { posts } = props.dateOfCalendar;
+      if (posts && posts.length > 3) {
+        return posts.slice(0, 2);
+      }
+      return posts;
+    });
+
+    return {
+      chooseDate,
+      isChosedDate,
+      ...toRefs(props),
+      postsToDisplay,
+    };
   },
 });
 </script>
