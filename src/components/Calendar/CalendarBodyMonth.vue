@@ -21,14 +21,13 @@ import { useStore } from '@/store';
 import {
   computed,
   defineComponent,
-  reactive,
 } from 'vue';
 
 export default defineComponent({
   name: 'CalendarBodyMonth',
   setup() {
     const store = useStore();
-    const monthList = reactive(['一  月', '二  月', '三  月', '四  月', '五  月', '六  月', '七  月', '八  月', '九  月', '十  月', '十一月', '十二月']);
+    const monthList = ['一 月', '二 月', '三 月', '四 月', '五 月', '六 月', '七 月', '八 月', '九 月', '十 月', '十一月', '十二月'];
     const currentMonth = computed(() => store.state.currentMonth);
 
     return {

@@ -34,7 +34,6 @@
 import {
   computed,
   defineComponent,
-  reactive,
   ref,
   watch,
 } from 'vue';
@@ -44,7 +43,7 @@ export default defineComponent({
   name: 'CalenderHeader',
   setup() {
     const store = useStore();
-    const photos = reactive(computed(() => store.state.currentDate.photos));
+    const photos = computed(() => store.state.currentDate.photos);
     const currentPhotoIndex = ref(0);
 
     watch(
