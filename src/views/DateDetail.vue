@@ -27,7 +27,7 @@
                   <ul class="list-group list-group-flush">
                     <li
                       class="list-group-item list-group-item-action text-truncate text-start ps-2 pe-0 py-1"
-                      v-for="post, index in currentDate.posts"
+                      v-for="post, index in posts"
                       :key="index"
                       :class="{ 'list-group-item-primary': index === currentPostIndex }"
                       @click="currentPostIndex = index"
@@ -50,26 +50,60 @@ import {
   defineComponent,
   ref,
   computed,
+  reactive,
 } from 'vue';
-import { useStore } from '@/store';
 import PhotoCarousel from '@/components/PhotoCarousel/PhotoCarousel.vue';
+import { useQuery, useResult } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
+import DateOfCalendar from '@/class/DateOfCalendar';
+import Post from '@/interface/Post';
 
 export default defineComponent({
   components: { PhotoCarousel },
+  props: {
+    dateString: {
+      type: String,
+      required: true,
+    },
+  },
   name: 'DateDetail',
-  setup() {
+  setup(props) {
     const monthList = ['一 月', '二 月', '三 月', '四 月', '五 月', '六 月', '七 月', '八 月', '九 月', '十 月', '十一月', '十二月'];
     const weekList = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-    const store = useStore();
-    const currentDate = ref(store.state.currentDate);
-    const { posts } = store.state.currentDate;
+    const dateOfCalendar = new DateOfCalendar();
+    dateOfCalendar.date = new Date(props.dateString);
+    const currentDate = ref(dateOfCalendar);
+
+    const variable = reactive({
+      postsQueryInput: {
+        from: props.dateString,
+        to: props.dateString,
+      },
+    });
+
+    const { result } = useQuery(gql`
+      query ($postsQueryInput: PostsQueryInput!){
+        posts(postsQueryInput: $postsQueryInput){
+          id,
+          title,
+          from,
+          to,
+          photos {
+            path,
+            caption
+          },
+        }
+      }
+    `, variable);
+    const posts = useResult(result, [] as Post[], data => data.posts as Post[]);
 
     const currentPostIndex = ref(0);
-    const currentPost = computed(() => (posts) ? posts[currentPostIndex.value] : null);
+    const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);
     const photos = computed(() => (currentPost.value) ? currentPost.value.photos : null);
 
     return {
       currentDate,
+      posts,
       currentPostIndex,
       monthList,
       weekList,

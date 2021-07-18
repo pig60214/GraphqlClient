@@ -23,9 +23,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Calendar,
   },
   {
-    path: '/date-detail',
+    path: '/date-detail/:dateString',
     name: 'DateDetail',
     component: DateDetail,
+    props: route => ({
+      dateString: route.params.dateString,
+    }),
   },
 ];
 

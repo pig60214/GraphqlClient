@@ -46,7 +46,7 @@ export default defineComponent({
 
     const chooseDate = () => {
       if (props.dateOfCalendar !== undefined && store.state.currentDate.equals(props.dateOfCalendar)) {
-        router.push({ name: 'DateDetail' });
+        router.push({ name: 'DateDetail', params: { dateString: store.state.currentDate.dateString } });
       }
       if (props.dateOfCalendar !== undefined && !store.state.currentDate.equals(props.dateOfCalendar)) {
         store.state.currentDate = props.dateOfCalendar;

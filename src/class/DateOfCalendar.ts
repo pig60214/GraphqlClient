@@ -6,6 +6,10 @@ export default class DateOfCalendar {
 
   posts? : Post[]
 
+  get dateString(): string {
+    return (this.date) ? `${this.date.getFullYear()}.${this.date.getMonth() + 1}.${this.date.getDate()}` : '';
+  }
+
   get isDisable(): boolean {
     return this.date === undefined;
   }
