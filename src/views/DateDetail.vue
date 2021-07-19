@@ -1,5 +1,5 @@
 <template>
-  <div id="calendar" class="container rounded-3 shadow" >
+  <div id="dateDetail" class="container rounded-3 shadow" >
     <div class="row justify-content-md-center">
       <div class="col-xs-auto col-md-4 align-self-center bg-vue-blue">
         <PhotoCarousel :carouselId="'DateDetailHeader'" :photos="photos" />
