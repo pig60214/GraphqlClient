@@ -38,11 +38,17 @@
                 </div>
               </div>
             </div>
+            <div class="card-footer py-1">
+              <div class="d-grid d-flex justify-content-end">
+                <button type="button" class="btn btn-sm btn-secondary"  data-bs-toggle="modal" data-bs-target="#exampleModal">✚</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <PostEditor />
 </template>
 
 <script lang="ts">
@@ -57,9 +63,10 @@ import { useQuery, useResult } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import Post from '@/interface/Post';
+import PostEditor from '@/components/DateDetail/PostEditor.vue';
 
 export default defineComponent({
-  components: { PhotoCarousel },
+  components: { PhotoCarousel, PostEditor },
   props: {
     dateString: {
       type: String,
