@@ -55,7 +55,7 @@ export default defineComponent({
       },
     );
 
-    return { ...toRefs(props), currentPhotoIndex };
+    return { currentPhotoIndex };
   },
 });
 </script>

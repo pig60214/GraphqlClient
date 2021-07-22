@@ -69,7 +69,6 @@ export default defineComponent({
     return {
       chooseDate,
       isChosedDate,
-      ...toRefs(props),
       postsToDisplay,
     };
   },

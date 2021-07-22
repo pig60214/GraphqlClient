@@ -21,9 +21,9 @@ export default defineComponent({
   components: {
     PhotoCarouselContent,
   },
-  setup(props) {
-    const autoPlay = ref(true);
-    return { autoPlay, ...toRefs(props) };
+  setup() {
+    const autoPlay = ref(false);
+    return { autoPlay };
   },
 });
 </script>
