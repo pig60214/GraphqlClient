@@ -4,16 +4,16 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">標題</span>
+            <span class="input-group-text">標題</span>
             <input type="text" class="form-control" v-model="title">
           </div>
         </div>
         <div class="modal-body">
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">日期</span>
-            <input type="date" class="form-control">
-            <span class="input-group-text" id="basic-addon1">~</span>
-            <input type="date" class="form-control">
+            <span class="input-group-text">日期</span>
+            <input type="date" class="form-control" v-model="from">
+            <span class="input-group-text">~</span>
+            <input type="date" class="form-control" v-model="to">
           </div>
           <input type="file" multiple="multiple" accept="image/*" class="form-control" @change="getImages">
         </div>
@@ -39,6 +39,8 @@ export default defineComponent({
   },
   setup(props) {
     const title = ref(props.dateString);
+    const from = ref(props.dateString);
+    const to = ref(props.dateString);
     const images = ref([]);
 
     // @ts-ignore
@@ -74,6 +76,8 @@ export default defineComponent({
 
     return {
       title,
+      from,
+      to,
       getImages,
       uploadPicture,
     };

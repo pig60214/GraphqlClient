@@ -14,11 +14,15 @@ export default class MonthOfCalendar {
   }
 
   get firstDateString(): string {
-    return `${this.firstDate.getFullYear()}.${this.firstDate.getMonth() + 1}.${this.firstDate.getDate()}`;
+    const date = new Date(this.firstDate.getTime());
+    date.setHours(8);
+    return date.toISOString().substr(0, 10);
   }
 
   get lastDateString(): string {
-    return `${this.lastDate.getFullYear()}.${this.lastDate.getMonth() + 1}.${this.lastDate.getDate()}`;
+    const date = new Date(this.lastDate.getTime());
+    date.setHours(8);
+    return date.toISOString().substr(0, 10);
   }
 
   get dateOfCalendarList(): DateOfCalendar[] {
