@@ -40,7 +40,7 @@
             </div>
             <div class="card-footer py-1">
               <div class="d-grid d-flex justify-content-end">
-                <button type="button" class="btn btn-sm btn-secondary"  data-bs-toggle="modal" data-bs-target="#exampleModal">✚</button>
+                <button type="button" class="btn btn-sm btn-secondary"  data-bs-toggle="modal" data-bs-target="#postEditor">✚</button>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  <PostEditor />
+  <PostEditor :dateString="dateString" />
 </template>
 
 <script lang="ts">
