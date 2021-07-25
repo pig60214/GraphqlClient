@@ -34,7 +34,6 @@
 import {
   defineComponent,
   ref,
-  toRefs,
   watch,
 } from 'vue';
 import Photo from '@/interface/Photo';

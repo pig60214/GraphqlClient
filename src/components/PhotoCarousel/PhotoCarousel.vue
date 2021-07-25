@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue';
+import { defineComponent, ref } from 'vue';
 import Photo from '@/interface/Photo';
 import PhotoCarouselContent from '@/components/PhotoCarousel/PhotoCarouselContent.vue';
 

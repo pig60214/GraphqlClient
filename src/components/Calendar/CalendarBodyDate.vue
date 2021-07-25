@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useStore } from '@/store';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import { useRouter } from 'vue-router';
