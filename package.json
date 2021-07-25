@@ -11,6 +11,7 @@
     "@apollo/client": "^3.3.21",
     "@popperjs/core": "^2.9.2",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
+    "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
     "graphql": "^15.5.1",
