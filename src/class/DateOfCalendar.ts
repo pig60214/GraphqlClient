@@ -20,7 +20,7 @@ export default class DateOfCalendar {
   }
 
   get photos(): (Photo | undefined)[] | undefined {
-    return this.posts?.map((post) => post.photos).flat();
+    return this.posts?.filter(post => post.photos !== null).map((post) => post.photos).flat();
   }
 
   equals(another: DateOfCalendar): boolean {
