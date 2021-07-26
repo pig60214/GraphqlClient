@@ -76,20 +76,21 @@ export default defineComponent({
       });
     };
 
-    const { mutate: addPost } = useMutation(gql`
+    const { mutate } = useMutation(gql`
       mutation ($addPostInput: AddPostInput!) {
         addPost(addPostInput: $addPostInput) {
           title,
         }
       }
-    `,
-    {
-      variables: {
+    `);
+
+    const addPost = () => {
+      mutate({
         addPostInput: {
           title: title.value,
         },
-      },
-    });
+      });
+    };
 
     return {
       title,
