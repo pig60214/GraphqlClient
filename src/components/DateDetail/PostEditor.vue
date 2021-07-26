@@ -18,7 +18,7 @@
           <input type="file" multiple="multiple" accept="image/*" class="form-control" @change="getImages">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" @click="uploadPicture">儲存</button>
+          <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
         </div>
       </div>
     </div>
@@ -28,6 +28,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios, { AxiosRequestConfig } from 'axios';
+import { useMutation } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
 
 export default defineComponent({
   name: 'PostEditor',
@@ -74,12 +76,28 @@ export default defineComponent({
       });
     };
 
+    const { mutate: addPost } = useMutation(gql`
+      mutation ($addPostInput: AddPostInput!) {
+        addPost(addPostInput: $addPostInput) {
+          title,
+        }
+      }
+    `,
+    {
+      variables: {
+        addPostInput: {
+          title: title.value,
+        },
+      },
+    });
+
     return {
       title,
       from,
       to,
       getImages,
       uploadPicture,
+      addPost,
     };
   },
 });
