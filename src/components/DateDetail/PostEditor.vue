@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import axios, { AxiosRequestConfig } from 'axios';
 import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 
@@ -43,37 +42,19 @@ export default defineComponent({
     const title = ref(props.dateString);
     const from = ref(props.dateString);
     const to = ref(props.dateString);
-    const images = ref([]);
+    const images = ref([] as File[]);
+
+    const toBase64 = (file: File) => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      // @ts-ignore
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+    });
 
     // @ts-ignore
-    const getImages = (e) => {
+    const getImages = async (e) => {
       images.value = e.target.files;
-    };
-
-    const uploadPicture = () => {
-      const config: AxiosRequestConfig = {
-        url: 'https://api.imgur.com/3/image',
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer beaf5d7bf18bed387f377c2d0668a9a88b4cd10e',
-        },
-        data: new FormData(),
-      };
-
-      images.value.forEach(image => {
-        const form = new FormData();
-        form.append('image', image);
-        // @ts-ignore
-        form.append('title', image.name);
-        form.append('description', title.value);
-        form.append('album', 'uDUHmuu');
-        config.data = form;
-
-        axios(config)
-          .then(res => console.log(res))
-          .catch(e => console.log(e));
-      });
     };
 
     const { mutate } = useMutation(gql`
@@ -84,10 +65,17 @@ export default defineComponent({
       }
     `);
 
-    const addPost = () => {
+    const addPost = async () => {
+      const toBase64Promise = Object.values(images.value).map(async image => {
+        const base64Image = await toBase64(image);
+        return base64Image;
+      });
+
+      const base64Images = await Promise.all(toBase64Promise);
       mutate({
         addPostInput: {
           title: title.value,
+          images: base64Images,
         },
       });
     };
@@ -97,7 +85,6 @@ export default defineComponent({
       from,
       to,
       getImages,
-      uploadPicture,
       addPost,
     };
   },
