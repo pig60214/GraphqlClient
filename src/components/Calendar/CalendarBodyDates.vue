@@ -57,7 +57,10 @@ export default defineComponent({
           },
         }
       }
-    `, variable);
+    `, variable,
+    {
+      fetchPolicy: 'no-cache',
+    });
     const posts = useResult(result, [] as Post[], data => data.posts as Post[]);
 
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
