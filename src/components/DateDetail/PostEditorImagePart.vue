@@ -1,7 +1,7 @@
 <template>
   <div class="modal-body border-top">
   <div class="input-group mb-3">
-    <span class="input-group-text">圖片標題</span>
+    <span class="input-group-text">照片標題</span>
     <input type="text" class="form-control" v-model="caption">
   </div>
   <input type="file" multiple="multiple" accept="image/*" class="form-control" @change="getFiles">
