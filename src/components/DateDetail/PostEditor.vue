@@ -6,14 +6,18 @@
           <div class="input-group">
             <span class="input-group-text">標題</span>
             <input type="text" class="form-control" v-model="title">
+            <button class="btn btn-outline-secondary" type="button" @click="title = ''">✖</button>
           </div>
         </div>
         <div class="modal-body">
-          <div class="input-group mb-3">
+          <div class="input-group mb-1">
             <span class="input-group-text">日期</span>
             <input type="date" class="form-control" v-model="from">
             <span class="input-group-text">~</span>
             <input type="date" class="form-control" v-model="to">
+          </div>
+          <div class="input-group mb-3 justify-content-end">
+            <button class="btn btn-sm btn-outline-secondary" type="button" @click="to = from">同起始日</button>
           </div>
           <div class="input-group">
             <span class="input-group-text">顏色</span>
