@@ -9,14 +9,14 @@
           </div>
         </div>
         <div class="modal-body">
-          <div class="input-group mb-3">
+          <div class="input-group">
             <span class="input-group-text">日期</span>
             <input type="date" class="form-control" v-model="from">
             <span class="input-group-text">~</span>
             <input type="date" class="form-control" v-model="to">
           </div>
-          <input type="file" multiple="multiple" accept="image/*" class="form-control" @change="getImages">
         </div>
+        <PostEditorImagePart :caption="caption" :updatCaption="updatCaption" :getImages="getImages" />
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
         </div>
@@ -29,8 +29,10 @@
 import { defineComponent, ref } from 'vue';
 import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
+import PostEditorImagePart from './PostEditorImagePart.vue';
 
 export default defineComponent({
+  components: { PostEditorImagePart },
   name: 'PostEditor',
   props: {
     dateString: {
@@ -42,6 +44,8 @@ export default defineComponent({
     const title = ref(props.dateString);
     const from = ref(props.dateString);
     const to = ref(props.dateString);
+
+    const caption = ref('');
     const images = ref([] as File[]);
 
     const toBase64 = (file: File) => new Promise((resolve, reject) => {
@@ -52,9 +56,14 @@ export default defineComponent({
       reader.onerror = error => reject(error);
     });
 
-    // @ts-ignore
-    const getImages = async (e) => {
+    const getImages = async (e: Event) => {
+      // @ts-ignore
       images.value = e.target.files;
+    };
+
+    const updatCaption = async (e: Event) => {
+      // @ts-ignore
+      caption.value = e.target.value;
     };
 
     const { mutate } = useMutation(gql`
@@ -86,7 +95,9 @@ export default defineComponent({
       title,
       from,
       to,
+      caption,
       getImages,
+      updatCaption,
       addPost,
     };
   },
