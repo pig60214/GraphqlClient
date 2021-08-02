@@ -16,9 +16,9 @@
             <input type="date" class="form-control" v-model="to">
           </div>
         </div>
-        <PostEditorImagePart v-for="_, index in pairsCollection" :key="index" :imagePartId="index" :setImages="setImages" />
+        <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :setPhotos="setPhotos" />
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="addImagePart">新增照片</button>
+          <button type="button" class="btn btn-secondary" @click="addPhotoArea">新增照片</button>
           <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
         </div>
       </div>
@@ -32,10 +32,10 @@ import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import FileCaptionPair from '@/interface/FileCaptionPair';
 import Base64FileCaptionPair from '@/interface/Base64FileCaptionPair';
-import PostEditorImagePart from './PostEditorImagePart.vue';
+import PostEditorAddPhotoArea from './PostEditorAddPhotoArea.vue';
 
 export default defineComponent({
-  components: { PostEditorImagePart },
+  components: { PostEditorAddPhotoArea },
   name: 'PostEditor',
   props: {
     dateString: {
@@ -58,9 +58,9 @@ export default defineComponent({
 
     const pairsCollection = reactive([] as FileCaptionPair[][]);
 
-    const setImages = (imagePartId: number, pairs: FileCaptionPair[]) => {
+    const setPhotos = (photoAreaId: number, pairs: FileCaptionPair[]) => {
       // @ts-ignore
-      pairsCollection[imagePartId] = pairs;
+      pairsCollection[photoAreaId] = pairs;
     };
 
     const { mutate } = useMutation(gql`
@@ -84,12 +84,12 @@ export default defineComponent({
           title: title.value,
           from: from.value,
           to: to.value,
-          images: base64FileCaptionPairs,
+          photos: base64FileCaptionPairs,
         },
       });
     };
 
-    const addImagePart = () => {
+    const addPhotoArea = () => {
       const pairCollection = [] as FileCaptionPair[];
       pairsCollection.push(pairCollection);
     };
@@ -99,8 +99,8 @@ export default defineComponent({
       from,
       to,
       pairsCollection,
-      addImagePart,
-      setImages,
+      addPhotoArea,
+      setPhotos,
       addPost,
     };
   },

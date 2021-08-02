@@ -14,11 +14,11 @@ import FileCaptionPair from '@/interface/FileCaptionPair';
 
 export default defineComponent({
   props: {
-    imagePartId: {
+    photoAreaId: {
       type: Number,
       required: true,
     },
-    setImages: {
+    setPhotos: {
       type: Function,
       required: true,
     },
@@ -38,7 +38,7 @@ export default defineComponent({
         const pair: FileCaptionPair = { file, caption: caption.value };
         return pair;
       });
-      props.setImages(props.imagePartId, pairs);
+      props.setPhotos(props.photoAreaId, pairs);
     });
 
     return { caption, getFiles };
