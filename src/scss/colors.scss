@@ -1,11 +1,16 @@
 $vue-blue: #2c3e50;
 $vue-green: #42b983;
-$vue-gray-blue: #e7eaf5;
+$light-blue: #ceedff;
+$light-red: #ffebeb;
+$light-yellow: #fbf7d9;
+
 
 $colors: (
-  'vue-blue': #2c3e50,
-  'vue-green': #42b983,
-  'gray-blue': #e7eaf5,
+  'vue-blue': $vue-blue,
+  'vue-green': $vue-green,
+  'light-blue': $light-blue,
+  'light-yellow': $light-yellow,
+  'light-red': $light-red,
 );
 
 @each $key, $value in $colors {
@@ -15,5 +20,15 @@ $colors: (
 
   .text-#{$key} {
     color: $value;
+  }
+
+  .btn-#{$key} {
+    background-color: $value;
+    border-color: $value;
+    color: $vue-blue;
+  }
+
+  .btn-check:active+.btn-#{$key}, .btn-check:checked+.btn-#{$key}, .btn-#{$key}.active, .btn-#{$key}:active, .show>.btn-#{$key}.dropdown-toggle {
+    border-color: $vue-blue;
   }
 }

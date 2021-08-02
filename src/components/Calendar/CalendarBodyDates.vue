@@ -51,6 +51,7 @@ export default defineComponent({
           title,
           from,
           to,
+          color,
           photos {
             path,
             caption

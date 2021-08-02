@@ -9,9 +9,10 @@
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
     <span
-      class="badge w-100 badge-text-truncate px-0 ps-2 text-start bg-gray-blue text-vue-blue"
+      class="badge w-100 badge-text-truncate px-0 ps-2 text-start text-vue-blue"
       v-for="post, index in postsToDisplay"
       :key="index"
+      :class="`bg-${post.color}`"
     >
       {{ post.title }}
     </span>
