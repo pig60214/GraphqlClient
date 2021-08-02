@@ -75,6 +75,8 @@ export default defineComponent({
       mutate({
         addPostInput: {
           title: title.value,
+          from: from.value,
+          to: to.value,
           images: base64Images,
         },
       });
