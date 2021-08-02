@@ -2,22 +2,18 @@ $vue-blue: #2c3e50;
 $vue-green: #42b983;
 $vue-gray-blue: #e7eaf5;
 
-.bg-vue-blue {
-  background-color: $vue-blue;
-}
+$colors: (
+  'vue-blue': #2c3e50,
+  'vue-green': #42b983,
+  'gray-blue': #e7eaf5,
+);
 
-.bg-vue-green {
-  background-color: $vue-green;
-}
+@each $key, $value in $colors {
+  .bg-#{$key} {
+    background-color: $value;
+  }
 
-.bg-gray-blue {
-  background-color: $vue-gray-blue;
-}
-
-.text-vue-blue {
-  color: $vue-blue;
-}
-
-.text-vue-green {
-  color: $vue-green;
+  .text-#{$key} {
+    color: $value;
+  }
 }
