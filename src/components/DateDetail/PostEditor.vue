@@ -16,7 +16,7 @@
             <input type="date" class="form-control" v-model="to">
           </div>
         </div>
-        <PostEditorImagePart :caption="caption" :updatCaption="updatCaption" :getImages="getImages" />
+        <PostEditorImagePart :imagePartId="0" :setImages="setImages" />
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
         </div>
@@ -26,9 +26,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
+import FileCaptionPair from '@/interface/FileCaptionPair';
+import Base64FileCaptionPair from '@/interface/Base64FileCaptionPair';
 import PostEditorImagePart from './PostEditorImagePart.vue';
 
 export default defineComponent({
@@ -45,9 +47,6 @@ export default defineComponent({
     const from = ref(props.dateString);
     const to = ref(props.dateString);
 
-    const caption = ref('');
-    const images = ref([] as File[]);
-
     const toBase64 = (file: File) => new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -56,14 +55,11 @@ export default defineComponent({
       reader.onerror = error => reject(error);
     });
 
-    const getImages = async (e: Event) => {
-      // @ts-ignore
-      images.value = e.target.files;
-    };
+    const pairsCollection = reactive([] as FileCaptionPair[]);
 
-    const updatCaption = async (e: Event) => {
+    const setImages = (imagePartId: number, pairs: FileCaptionPair[]) => {
       // @ts-ignore
-      caption.value = e.target.value;
+      pairsCollection[imagePartId] = pairs;
     };
 
     const { mutate } = useMutation(gql`
@@ -75,18 +71,19 @@ export default defineComponent({
     `);
 
     const addPost = async () => {
-      const toBase64Promise = Object.values(images.value).map(async image => {
-        const base64Image = await toBase64(image);
-        return base64Image;
+      const pairs = pairsCollection.flat();
+      const toBase64Promise = pairs.map(async pair => {
+        const base64File = await toBase64(pair.file);
+        return { base64File, caption: pair.caption } as Base64FileCaptionPair;
       });
 
-      const base64Images = await Promise.all(toBase64Promise);
+      const base64FileCaptionPairs = await Promise.all(toBase64Promise);
       mutate({
         addPostInput: {
           title: title.value,
           from: from.value,
           to: to.value,
-          images: base64Images,
+          images: base64FileCaptionPairs,
         },
       });
     };
@@ -95,9 +92,7 @@ export default defineComponent({
       title,
       from,
       to,
-      caption,
-      getImages,
-      updatCaption,
+      setImages,
       addPost,
     };
   },
