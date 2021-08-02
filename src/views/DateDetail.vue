@@ -101,7 +101,10 @@ export default defineComponent({
           },
         }
       }
-    `, variable);
+    `, variable,
+    {
+      fetchPolicy: 'no-cache',
+    });
     const posts = useResult(result, [] as Post[], data => data.posts as Post[]);
 
     const currentPostIndex = ref(0);
