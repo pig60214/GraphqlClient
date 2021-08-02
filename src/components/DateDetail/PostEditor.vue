@@ -16,8 +16,9 @@
             <input type="date" class="form-control" v-model="to">
           </div>
         </div>
-        <PostEditorImagePart :imagePartId="0" :setImages="setImages" />
+        <PostEditorImagePart v-for="_, index in pairsCollection" :key="index" :imagePartId="index" :setImages="setImages" />
         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="addImagePart">新增照片</button>
           <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
         </div>
       </div>
@@ -55,7 +56,7 @@ export default defineComponent({
       reader.onerror = error => reject(error);
     });
 
-    const pairsCollection = reactive([] as FileCaptionPair[]);
+    const pairsCollection = reactive([] as FileCaptionPair[][]);
 
     const setImages = (imagePartId: number, pairs: FileCaptionPair[]) => {
       // @ts-ignore
@@ -88,10 +89,17 @@ export default defineComponent({
       });
     };
 
+    const addImagePart = () => {
+      const pairCollection = [] as FileCaptionPair[];
+      pairsCollection.push(pairCollection);
+    };
+
     return {
       title,
       from,
       to,
+      pairsCollection,
+      addImagePart,
       setImages,
       addPost,
     };
