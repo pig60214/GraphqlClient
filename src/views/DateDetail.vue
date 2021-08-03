@@ -27,10 +27,12 @@
                   <ul class="list-group list-group-flush">
                     <li
                       class="list-group-item list-group-item-action text-truncate text-start ps-2 pe-0 py-1"
+                      :data-bs-target="index === currentPostIndex ? '#postEditor' : ''"
+                      data-bs-toggle="modal"
                       v-for="post, index in posts"
                       :key="index"
                       :class="{ 'list-group-item-primary': index === currentPostIndex }"
-                      @click="currentPostIndex = index"
+                      @click="clickPost(index)"
                     >
                       {{ post.title }}
                     </li>
@@ -40,7 +42,7 @@
             </div>
             <div class="card-footer py-1">
               <div class="d-grid d-flex justify-content-end">
-                <button type="button" class="btn btn-sm btn-secondary"  data-bs-toggle="modal" data-bs-target="#postEditor">✚</button>
+                <button type="button" class="btn btn-sm btn-secondary"  data-bs-toggle="modal" data-bs-target="#postEditor" @click="clickAddPost">✚</button>
               </div>
             </div>
           </div>
@@ -48,7 +50,7 @@
       </div>
     </div>
   </div>
-  <PostEditor :dateString="dateString" />
+  <PostEditor :isNewPost="isNewPost" :dateString="dateString" :post="currentPost" />
 </template>
 
 <script lang="ts">
@@ -95,6 +97,7 @@ export default defineComponent({
           title,
           from,
           to,
+          color,
           photos {
             path,
             caption
@@ -111,13 +114,26 @@ export default defineComponent({
     const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);
     const photos = computed(() => (currentPost.value) ? currentPost.value.photos : null);
 
+    const isNewPost = ref(false);
+
+    const clickPost = (index: number) => {
+      currentPostIndex.value = index;
+      isNewPost.value = false;
+    };
+
+    const clickAddPost = () => { isNewPost.value = true; };
+
     return {
       currentDate,
       posts,
       currentPostIndex,
+      currentPost,
       monthList,
       weekList,
       photos,
+      isNewPost,
+      clickPost,
+      clickAddPost,
     };
   },
 });
