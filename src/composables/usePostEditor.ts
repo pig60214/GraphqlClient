@@ -19,14 +19,14 @@ export default function usePostEditor(isNewPost: Ref<boolean>, dateString: Ref<s
     if (isNewPost.value) {
       return dateString.value;
     }
-    return post.value ? post.value.from : '';
+    return post.value ? post.value.from.substr(0, 10) : '';
   });
 
   const originalTo = computed(() => {
     if (isNewPost.value) {
       return dateString.value;
     }
-    return post.value ? post.value.to : '';
+    return post.value ? post.value.to.substr(0, 10) : '';
   });
 
   const originalColor = computed(() => {
