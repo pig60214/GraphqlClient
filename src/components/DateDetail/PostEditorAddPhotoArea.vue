@@ -18,7 +18,7 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    setPhotos: {
+    savePhotosToCollection: {
       type: Function,
       required: true,
     },
@@ -38,7 +38,7 @@ export default defineComponent({
         const pair: FileCaptionPair = { file, caption: caption.value };
         return pair;
       });
-      props.setPhotos(props.photoAreaId, pairs);
+      props.savePhotosToCollection(props.photoAreaId, pairs);
     });
 
     return { caption, getFiles };

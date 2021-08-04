@@ -39,7 +39,7 @@
             </div>
           </div>
         </div>
-        <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :setPhotos="setPhotos" />
+        <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="addPhotoArea">新增照片</button>
           <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
@@ -88,7 +88,7 @@ export default defineComponent({
 
     const pairsCollection = ref([] as FileCaptionPair[][]);
 
-    const setPhotos = (photoAreaId: number, pairs: FileCaptionPair[]) => {
+    const savePhotosToCollection = (photoAreaId: number, pairs: FileCaptionPair[]) => {
       // @ts-ignore
       pairsCollection[photoAreaId] = pairs;
     };
@@ -107,7 +107,7 @@ export default defineComponent({
       color,
       pairsCollection,
       addPhotoArea,
-      setPhotos,
+      savePhotosToCollection,
       addPost,
     };
   },
