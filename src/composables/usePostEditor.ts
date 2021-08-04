@@ -17,14 +17,14 @@ export default function usePostEditor(isNewPost: Ref<boolean>, dateString: Ref<s
 
   const originalFrom = computed(() => {
     if (isNewPost.value) {
-      return dateString.value;
+      return `${dateString.value}T00:00:00`;
     }
     return post.value ? post.value.from : '';
   });
 
   const originalTo = computed(() => {
     if (isNewPost.value) {
-      return dateString.value;
+      return `${dateString.value}T00:00:00`;
     }
     return post.value ? post.value.to : '';
   });
