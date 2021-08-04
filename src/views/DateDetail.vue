@@ -50,7 +50,7 @@
       </div>
     </div>
   </div>
-  <PostEditor :isNewPost="isNewPost" :dateString="dateString" :existingPost="currentPost" />
+  <PostEditor :isNewPost="isNewPost" :dateString="dateString" :post="currentPost" />
 </template>
 
 <script lang="ts">
