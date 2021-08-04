@@ -112,8 +112,12 @@ export default defineComponent({
     const posts = useResult(result, [] as Post[], data => {
       const toPostList = (data.posts as any[]).map(postFromApi => {
         const post = {
-          ...postFromApi,
           postId: postFromApi.id,
+          title: postFromApi.title,
+          from: postFromApi.from.substr(0, 10),
+          to: postFromApi.to.substr(0, 10),
+          color: postFromApi.color,
+          photos: postFromApi.photos,
         } as Post;
         return post;
       });

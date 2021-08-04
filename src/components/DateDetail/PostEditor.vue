@@ -5,27 +5,27 @@
         <div class="modal-header">
           <div class="input-group">
             <span class="input-group-text">標題</span>
-            <input type="text" class="form-control" v-model="title">
-            <button class="btn btn-outline-secondary" type="button" @click="title = ''">✖</button>
+            <input type="text" class="form-control" v-model="editingPost.title">
+            <button class="btn btn-outline-secondary" type="button" @click="editingPost.title = ''">✖</button>
           </div>
         </div>
         <div class="modal-body">
           <div class="input-group mb-1">
             <span class="input-group-text">日期</span>
-            <input type="date" class="form-control" v-model="from">
+            <input type="date" class="form-control" v-model="editingPost.from">
             <span class="input-group-text">~</span>
-            <input type="date" class="form-control" v-model="to">
+            <input type="date" class="form-control" v-model="editingPost.to">
           </div>
           <div class="input-group mb-3 justify-content-end">
-            <button class="btn btn-sm btn-outline-secondary" type="button" @click="to = from">同起始日</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button" @click="editingPost.to = editingPost.from">同起始日</button>
           </div>
           <div class="input-group">
             <span class="input-group-text">顏色</span>
-            <input type="radio" class="btn-check" name="colorOptions" id="light-blue" value="light-blue" v-model="color">
+            <input type="radio" class="btn-check" name="colorOptions" id="light-blue" value="light-blue" v-model="editingPost.color">
             <label class="btn btn-light-blue mx-2" for="light-blue">藍</label>
-            <input type="radio" class="btn-check" name="colorOptions" id="light-yellow" value="light-yellow" v-model="color">
+            <input type="radio" class="btn-check" name="colorOptions" id="light-yellow" value="light-yellow" v-model="editingPost.color">
             <label class="btn btn-light-yellow me-2" for="light-yellow">黃</label>
-            <input type="radio" class="btn-check" name="colorOptions" id="light-red" value="light-red" v-model="color">
+            <input type="radio" class="btn-check" name="colorOptions" id="light-red" value="light-red" v-model="editingPost.color">
             <label class="btn btn-light-red" for="light-red">紅</label>
           </div>
         </div>
@@ -55,11 +55,12 @@ import {
   defineComponent,
   ref,
   toRefs,
+  watch,
 } from 'vue';
 import FileCaptionPair from '@/interface/FileCaptionPair';
 import Post from '@/interface/Post';
-import usePostEditor from '@/composables/usePostEditor';
 import usePostApi from '@/composables/usePostApi';
+import EnumColor from '@/enum/EnumColor';
 import PostEditorAddPhotoArea from './PostEditorAddPhotoArea.vue';
 
 export default defineComponent({
@@ -80,12 +81,27 @@ export default defineComponent({
   },
   setup(props) {
     const { isNewPost, dateString, post } = toRefs(props);
-    const {
-      title,
-      from,
-      to,
-      color,
-    } = usePostEditor(isNewPost, dateString, post);
+    const existingPost = ref(props.post);
+
+    watch(post, () => { existingPost.value = post.value; });
+
+    const newPost = ref({
+      postId: 0,
+      title: dateString.value,
+      from: dateString.value,
+      to: dateString.value,
+      color: EnumColor.LightBlue,
+    } as Post);
+
+    const editingPost = computed(() => {
+      if (isNewPost.value) {
+        return newPost.value;
+      }
+      if (existingPost.value) {
+        return existingPost.value;
+      }
+      return newPost.value;
+    });
 
     const pairsCollection = ref([] as FileCaptionPair[][]);
 
@@ -99,26 +115,11 @@ export default defineComponent({
       pairsCollection.value.push(pairCollection);
     };
 
-    const postId = computed(() => isNewPost.value ? 0 : post.value?.postId);
-    const editedPost = computed(() => {
-      const post = {
-        title: title.value,
-        from: from.value,
-        to: to.value,
-        color: color.value,
-        postId: postId.value,
-      } as Post;
-      return post;
-    });
-
-    const { addPost, updatePost } = usePostApi(pairsCollection, editedPost);
+    const { addPost, updatePost } = usePostApi(pairsCollection, editingPost);
     const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
 
     return {
-      title,
-      from,
-      to,
-      color,
+      editingPost,
       pairsCollection,
       addPhotoArea,
       savePhotosToCollection,
