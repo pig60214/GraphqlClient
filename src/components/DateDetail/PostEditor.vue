@@ -90,7 +90,7 @@ export default defineComponent({
 
     const savePhotosToCollection = (photoAreaId: number, pairs: FileCaptionPair[]) => {
       // @ts-ignore
-      pairsCollection[photoAreaId] = pairs;
+      pairsCollection.value[photoAreaId] = pairs;
     };
 
     const addPhotoArea = () => {
