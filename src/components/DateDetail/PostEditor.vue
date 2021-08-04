@@ -29,6 +29,16 @@
             <label class="btn btn-light-red" for="light-red">紅</label>
           </div>
         </div>
+        <div class="container">
+          <div class="row" v-if="!isNewPost && post && post.photos">
+            <div class="col-6" v-for="photo, index in post.photos" :key="index">
+              <div class="ratio ratio-1x1">
+                <img :alt="photo.caption" :src="photo.path">
+              </div>
+              <input type="text" class="form-control" :value="photo.caption">
+            </div>
+          </div>
+        </div>
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :setPhotos="setPhotos" />
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="addPhotoArea">新增照片</button>
