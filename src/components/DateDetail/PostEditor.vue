@@ -12,9 +12,9 @@
         <div class="modal-body">
           <div class="input-group mb-1">
             <span class="input-group-text">日期</span>
-            <input type="date" class="form-control" v-model="from">
+            <input type="datetime-local" class="form-control" v-model="from">
             <span class="input-group-text">~</span>
-            <input type="date" class="form-control" v-model="to">
+            <input type="datetime-local" class="form-control" v-model="to">
           </div>
           <div class="input-group mb-3 justify-content-end">
             <button class="btn btn-sm btn-outline-secondary" type="button" @click="to = from">同起始日</button>
