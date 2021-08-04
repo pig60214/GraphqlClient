@@ -35,7 +35,7 @@
               <div class="ratio ratio-1x1">
                 <img :alt="photo.caption" :src="photo.path">
               </div>
-              <input type="text" class="form-control" :value="photo.caption">
+              <strong>{{ photo.caption}}</strong>
             </div>
           </div>
         </div>
@@ -52,15 +52,13 @@
 <script lang="ts">
 import {
   defineComponent,
-  reactive,
+  ref,
   toRefs,
 } from 'vue';
-import { useMutation } from '@vue/apollo-composable';
-import gql from 'graphql-tag';
 import FileCaptionPair from '@/interface/FileCaptionPair';
 import Post from '@/interface/Post';
 import usePostEditor from '@/composables/usePostEditor';
-import fileToBase64 from '@/helpers/toBase64FileHelper';
+import usePostApi from '@/composables/usePostApi';
 import PostEditorAddPhotoArea from './PostEditorAddPhotoArea.vue';
 
 export default defineComponent({
@@ -88,39 +86,19 @@ export default defineComponent({
       color,
     } = usePostEditor(isNewPost, dateString, post);
 
-    const pairsCollection = reactive([] as FileCaptionPair[][]);
+    const pairsCollection = ref([] as FileCaptionPair[][]);
 
     const setPhotos = (photoAreaId: number, pairs: FileCaptionPair[]) => {
       // @ts-ignore
       pairsCollection[photoAreaId] = pairs;
     };
 
-    const { mutate } = useMutation(gql`
-      mutation ($addPostInput: AddPostInput!) {
-        addPost(addPostInput: $addPostInput) {
-          title,
-        }
-      }
-    `);
-
-    const addPost = async () => {
-      const pairs = pairsCollection.flat();
-      const base64FileCaptionPairs = await fileToBase64(pairs);
-      mutate({
-        addPostInput: {
-          title: title.value,
-          from: from.value,
-          to: to.value,
-          color: color.value,
-          photos: base64FileCaptionPairs,
-        },
-      });
-    };
-
     const addPhotoArea = () => {
       const pairCollection = [] as FileCaptionPair[];
-      pairsCollection.push(pairCollection);
+      pairsCollection.value.push(pairCollection);
     };
+
+    const { addPost } = usePostApi(pairsCollection, title, from, to, color);
 
     return {
       title,
