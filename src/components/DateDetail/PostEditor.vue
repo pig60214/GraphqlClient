@@ -11,7 +11,6 @@
         </div>
         <div class="modal-body">
           <div class="input-group mb-1">
-            <span class="input-group-text">日期</span>
             <input type="date" class="form-control" v-model="editingPost.from">
             <span class="input-group-text">~</span>
             <input type="date" class="form-control" v-model="editingPost.to">
