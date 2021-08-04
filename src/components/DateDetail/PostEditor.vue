@@ -40,36 +40,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import {
+  defineComponent,
+  reactive,
+  ref,
+  toRefs,
+} from 'vue';
 import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import FileCaptionPair from '@/interface/FileCaptionPair';
-import Base64FileCaptionPair from '@/interface/Base64FileCaptionPair';
 import EnumColor from '@/enum/EnumColor';
+import Post from '@/interface/Post';
+import usePostEditor from '@/composables/usePostEditor';
+import fileToBase64 from '@/helpers/toBase64FileHelper';
 import PostEditorAddPhotoArea from './PostEditorAddPhotoArea.vue';
 
 export default defineComponent({
   components: { PostEditorAddPhotoArea },
   name: 'PostEditor',
   props: {
+    isNewPost: {
+      type: Boolean,
+      equired: true,
+    },
     dateString: {
       type: String,
       required: true,
     },
+    post: {
+      type: Object as () => Post,
+    },
   },
   setup(props) {
-    const title = ref(props.dateString);
+    const { isNewPost, dateString, post } = toRefs(props);
+    const { title } = usePostEditor(isNewPost, dateString, post);
+
     const from = ref(props.dateString);
     const to = ref(props.dateString);
     const color = ref(EnumColor.LightBlue);
-
-    const toBase64 = (file: File) => new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      // @ts-ignore
-      reader.onload = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = error => reject(error);
-    });
 
     const pairsCollection = reactive([] as FileCaptionPair[][]);
 
@@ -88,12 +96,7 @@ export default defineComponent({
 
     const addPost = async () => {
       const pairs = pairsCollection.flat();
-      const toBase64Promise = pairs.map(async pair => {
-        const base64File = await toBase64(pair.file);
-        return { base64File, caption: pair.caption } as Base64FileCaptionPair;
-      });
-
-      const base64FileCaptionPairs = await Promise.all(toBase64Promise);
+      const base64FileCaptionPairs = await fileToBase64(pairs);
       mutate({
         addPostInput: {
           title: title.value,
