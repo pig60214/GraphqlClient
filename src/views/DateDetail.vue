@@ -108,7 +108,17 @@ export default defineComponent({
     {
       fetchPolicy: 'no-cache',
     });
-    const posts = useResult(result, [] as Post[], data => data.posts as Post[]);
+
+    const posts = useResult(result, [] as Post[], data => {
+      const toPostList = (data.posts as any[]).map(postFromApi => {
+        const post = {
+          ...postFromApi,
+          postId: postFromApi.id,
+        } as Post;
+        return post;
+      });
+      return toPostList;
+    });
 
     const currentPostIndex = ref(0);
     const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);

@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'arrow-parens': 'off',
     'no-confusing-arrow': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
