@@ -43,13 +43,11 @@
 import {
   defineComponent,
   reactive,
-  ref,
   toRefs,
 } from 'vue';
 import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import FileCaptionPair from '@/interface/FileCaptionPair';
-import EnumColor from '@/enum/EnumColor';
 import Post from '@/interface/Post';
 import usePostEditor from '@/composables/usePostEditor';
 import fileToBase64 from '@/helpers/toBase64FileHelper';
@@ -73,11 +71,12 @@ export default defineComponent({
   },
   setup(props) {
     const { isNewPost, dateString, post } = toRefs(props);
-    const { title } = usePostEditor(isNewPost, dateString, post);
-
-    const from = ref(props.dateString);
-    const to = ref(props.dateString);
-    const color = ref(EnumColor.LightBlue);
+    const {
+      title,
+      from,
+      to,
+      color,
+    } = usePostEditor(isNewPost, dateString, post);
 
     const pairsCollection = reactive([] as FileCaptionPair[][]);
 
