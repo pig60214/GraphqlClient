@@ -115,6 +115,12 @@ export default defineComponent({
       pairsCollection.value.push(pairCollection);
     };
 
+    const clearPhotoArea = () => {
+      pairsCollection.value.splice(0, pairsCollection.value.length);
+    };
+
+    watch(editingPost, () => { clearPhotoArea(); });
+
     const { addPost, updatePost } = usePostApi(pairsCollection, editingPost);
     const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
 
