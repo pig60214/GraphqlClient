@@ -28,7 +28,7 @@
                     <li
                       class="list-group-item list-group-item-action text-truncate text-start ps-2 pe-0 py-1"
                       :data-bs-target="index === currentPostIndex ? '#postEditor' : ''"
-                      data-bs-toggle="modal"
+                      :data-bs-toggle="index === currentPostIndex ? 'modal' : ''"
                       v-for="post, index in posts"
                       :key="index"
                       :class="{ 'list-group-item-primary': index === currentPostIndex }"
