@@ -42,7 +42,7 @@
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="addPhotoArea">新增照片</button>
-          <button type="button" class="btn btn-primary" @click="addPost">儲存</button>
+          <button type="button" class="btn btn-primary" @click="saveAction">儲存</button>
         </div>
       </div>
     </div>
@@ -51,6 +51,7 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   ref,
   toRefs,
@@ -98,7 +99,20 @@ export default defineComponent({
       pairsCollection.value.push(pairCollection);
     };
 
-    const { addPost } = usePostApi(pairsCollection, title, from, to, color);
+    const postId = computed(() => isNewPost.value ? 0 : post.value?.postId);
+    const editedPost = computed(() => {
+      const post = {
+        title: title.value,
+        from: from.value,
+        to: to.value,
+        color: color.value,
+        postId: postId.value,
+      } as Post;
+      return post;
+    });
+
+    const { addPost, updatePost } = usePostApi(pairsCollection, editedPost);
+    const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
 
     return {
       title,
@@ -108,7 +122,7 @@ export default defineComponent({
       pairsCollection,
       addPhotoArea,
       savePhotosToCollection,
-      addPost,
+      saveAction,
     };
   },
 });
