@@ -74,18 +74,18 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    post: {
+    existingPost: {
       type: Object as () => Post,
     },
   },
   setup(props) {
-    const { isNewPost, dateString, post } = toRefs(props);
+    const { isNewPost, dateString, existingPost } = toRefs(props);
     const {
       title,
       from,
       to,
       color,
-    } = usePostEditor(isNewPost, dateString, post);
+    } = usePostEditor(isNewPost, dateString, existingPost);
 
     const pairsCollection = ref([] as FileCaptionPair[][]);
 
@@ -99,7 +99,7 @@ export default defineComponent({
       pairsCollection.value.push(pairCollection);
     };
 
-    const postId = computed(() => isNewPost.value ? 0 : post.value?.postId);
+    const postId = computed(() => isNewPost.value ? 0 : existingPost.value?.postId);
     const editedPost = computed(() => {
       const post = {
         title: title.value,
