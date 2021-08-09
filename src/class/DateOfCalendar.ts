@@ -6,6 +6,10 @@ export default class DateOfCalendar {
 
   posts? : Post[]
 
+  constructor(date?: Date) {
+    if (date) this.date = date;
+  }
+
   get dateString(): string {
     if (this.date === undefined) {
       return '';

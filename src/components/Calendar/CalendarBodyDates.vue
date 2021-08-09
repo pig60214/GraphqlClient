@@ -66,10 +66,6 @@ export default defineComponent({
 
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
-    const today = new Date();
-    const todayDateOfCalendar = dateOfCalendarList.find((dateOfCalendar) => dateOfCalendar.date?.getDate() === today.getDate());
-    store.state.currentDate = todayDateOfCalendar !== undefined ? todayDateOfCalendar : new DateOfCalendar();
-
     const getPosts = (dateOfCalendar: DateOfCalendar) => {
       if (posts.value.length > 0) {
         const { date } = dateOfCalendar;

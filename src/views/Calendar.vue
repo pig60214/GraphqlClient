@@ -23,9 +23,17 @@ export default defineComponent({
     PhotoCarousel,
     CalendarBody,
   },
-  setup() {
+  props: {
+    dateString: String,
+  },
+  setup(props) {
     const store = useStore();
     const photos = computed(() => store.state.currentDate.photos);
+
+    if (props.dateString) {
+      store.commit('setCurrentDate', props.dateString);
+    }
+
     return { photos };
   },
 });

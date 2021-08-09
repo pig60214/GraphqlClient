@@ -18,9 +18,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
-    path: '/calendar',
+    path: '/calendar/:dateString?',
     name: 'Calendar',
     component: Calendar,
+    props: route => ({
+      dateString: route.params.dateString,
+    }),
   },
   {
     path: '/date-detail/:dateString',
