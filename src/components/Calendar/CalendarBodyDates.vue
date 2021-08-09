@@ -37,12 +37,15 @@ export default defineComponent({
       },
     });
 
-    watch(store.state,
-      () => {
+    watch(
+      () => store.state.currentMonth,
+      (newVal, oldVal) => {
+        if (newVal.equals(oldVal)) return;
         weekListOfCurrentMonth.value = store.state.currentMonth.calendar;
         variable.postsQueryInput.from = store.state.currentMonth.firstDateString;
         variable.postsQueryInput.to = store.state.currentMonth.lastDateString;
-      });
+      },
+    );
 
     const { result } = useQuery(gql`
       query ($postsQueryInput: PostsQueryInput!){

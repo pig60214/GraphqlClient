@@ -81,6 +81,10 @@ export default class MonthOfCalendar {
     }
   }
 
+  equals(another: MonthOfCalendar): boolean {
+    return this.month === another.month && this.year === another.year;
+  }
+
   constructor(year: number, month: number) {
     this.year = year;
     this.month = month;

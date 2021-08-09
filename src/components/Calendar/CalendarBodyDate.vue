@@ -51,6 +51,7 @@ export default defineComponent({
       }
       if (props.dateOfCalendar !== undefined && !store.state.currentDate.equals(props.dateOfCalendar)) {
         store.state.currentDate = props.dateOfCalendar;
+        router.push({ name: 'Calendar', params: { dateString: store.state.currentDate.dateString } });
       }
     };
 
