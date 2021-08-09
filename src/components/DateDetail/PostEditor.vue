@@ -40,8 +40,9 @@
         </div>
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="addPhotoArea">新增照片</button>
-          <button type="button" class="btn btn-primary" @click="saveAction">儲存</button>
+          <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">新增照片</button>
+          <button type="button" class="btn btn-sm btn-primary" @click="saveAction">儲存</button>
+          <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal" aria-label="關閉">關閉</button>
         </div>
       </div>
     </div>
