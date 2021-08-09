@@ -2,10 +2,27 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
-    <router-link to="/calendar">Calendar</router-link>
+    <router-link :to="`/calendar/${dateToString(currentDate.date)}`">Calendar</router-link>
   </div>
   <router-view/>
 </template>
+
+<script>
+import dateToString from '@/helpers/dateFormateHelper';
+import { useStore } from '@/store';
+import { computed } from 'vue';
+
+export default {
+  setup() {
+    const store = useStore();
+    const currentDate = computed(() => store.state.currentDate);
+    return {
+      dateToString,
+      currentDate,
+    };
+  },
+};
+</script>
 
 <style lang="scss">
 #app {

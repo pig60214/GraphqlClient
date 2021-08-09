@@ -26,11 +26,11 @@
         </h1>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="prev" @click="currentMonth.addMonth(-1)">
+    <button class="carousel-control-prev" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="prev" @click="goToAddMonth(-1)">
       <span class="carousel-control-prev-icon w-50 h-50" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="next" @click="currentMonth.addMonth(1)">
+    <button class="carousel-control-next" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="next" @click="goToAddMonth(1)">
       <span class="carousel-control-next-icon w-50 h-50" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
@@ -44,6 +44,8 @@ import {
   defineComponent,
   ref,
 } from 'vue';
+import { useRouter } from 'vue-router';
+import dateToString from '@/helpers/dateFormateHelper';
 
 export default defineComponent({
   name: 'CalendarBodyMonth',
@@ -54,11 +56,18 @@ export default defineComponent({
     const showYearSelection = ref(false);
     const showMonthSelection = ref(false);
 
+    const router = useRouter();
+    const goToAddMonth = (month: number) => {
+      const addMonth = currentMonth.value.addMonth(month);
+      router.push({ name: 'Calendar', params: { dateString: dateToString(addMonth) } });
+    };
+
     return {
       monthList,
       currentMonth,
       showYearSelection,
       showMonthSelection,
+      goToAddMonth,
     };
   },
 });

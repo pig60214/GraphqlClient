@@ -1,3 +1,4 @@
+import dateToString from '@/helpers/dateFormateHelper';
 import Post from '../interface/Post';
 import Photo from '../interface/Photo';
 
@@ -14,9 +15,8 @@ export default class DateOfCalendar {
     if (this.date === undefined) {
       return '';
     }
-    const date = new Date(this.date.getTime());
-    date.setHours(8);
-    return date.toISOString().substr(0, 10);
+
+    return dateToString(this.date);
   }
 
   get isDisable(): boolean {

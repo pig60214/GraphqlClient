@@ -37,7 +37,7 @@ export default defineComponent({
       },
     });
 
-    watch(store.state.currentMonth,
+    watch(store.state,
       () => {
         weekListOfCurrentMonth.value = store.state.currentMonth.calendar;
         variable.postsQueryInput.from = store.state.currentMonth.firstDateString;

@@ -1,3 +1,4 @@
+import dateToString from '@/helpers/dateFormateHelper';
 import DateOfCalendar from './DateOfCalendar';
 
 export default class MonthOfCalendar {
@@ -14,15 +15,11 @@ export default class MonthOfCalendar {
   }
 
   get firstDateString(): string {
-    const date = new Date(this.firstDate.getTime());
-    date.setHours(8);
-    return date.toISOString().substr(0, 10);
+    return dateToString(this.firstDate);
   }
 
   get lastDateString(): string {
-    const date = new Date(this.lastDate.getTime());
-    date.setHours(8);
-    return date.toISOString().substr(0, 10);
+    return dateToString(this.lastDate);
   }
 
   get dateOfCalendarList(): DateOfCalendar[] {
@@ -56,11 +53,10 @@ export default class MonthOfCalendar {
     return weekList;
   }
 
-  addMonth(month : number) : void {
+  addMonth(month : number) : Date {
     const date = new Date(this.year, this.month, 1);
     date.setMonth(date.getMonth() + month);
-    this.year = date.getFullYear();
-    this.month = date.getMonth();
+    return date;
   }
 
   private addEmptyDateOfCalendarAtBeginning = (startDate: Date, dateList: Array<DateOfCalendar>) => {
