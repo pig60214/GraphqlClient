@@ -16,7 +16,7 @@ export const store = createStore<State>({
     currentDate: new DateOfCalendar((new Date())),
   },
   mutations: {
-    setCurrentDate(state, dateString) {
+    setCurrentDate(state, dateString: string) {
       const notISODateString = dateString.replace(/-/g, '.');
       const date = new Date(notISODateString);
       const monthOfCalendar = new MonthOfCalendar(date.getFullYear(), date.getMonth());
@@ -25,7 +25,6 @@ export const store = createStore<State>({
       const dateOfCalendar = new DateOfCalendar();
       dateOfCalendar.date = date;
       state.currentDate = dateOfCalendar;
-      console.log(state.currentDate);
     },
   },
   actions: {

@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'CalendarBodyDates',
   setup() {
     const store = useStore();
-    const { dateOfCalendarList, calendar } = store.state.currentMonth;
+    const { calendar } = store.state.currentMonth;
     const weekListOfCurrentMonth = ref(calendar);
     const variable = reactive({
       postsQueryInput: {
