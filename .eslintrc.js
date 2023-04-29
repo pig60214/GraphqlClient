@@ -22,6 +22,6 @@ module.exports = {
     'no-param-reassign': 'off',
     "no-shadow": "off",
     'max-len': ['error', { 'code': 200 }],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 0,
   },
 };
