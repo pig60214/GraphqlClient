@@ -7,6 +7,7 @@ import { store, key } from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
+import './tailwind.css';
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
