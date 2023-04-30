@@ -11,7 +11,7 @@ import 'bootstrap';
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'http://192.168.1.103:4000/graphql',
+  uri: process.env.VUE_APP_API_URL,
 });
 
 // Cache implementation
