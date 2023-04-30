@@ -121,6 +121,7 @@ export default defineComponent({
 
     watch(editingPost, () => { clearPhotoArea(); });
 
+    // @ts-ignore
     const { addPost, updatePost } = usePostApi(pairsCollection, editingPost);
     const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
 
