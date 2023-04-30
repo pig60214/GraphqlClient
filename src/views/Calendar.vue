@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
 import PhotoCarousel from '../components/PhotoCarousel/PhotoCarousel.vue';
 import CalendarBody from '../components/Calendar/CalendarBody.vue';
@@ -36,15 +36,6 @@ export default defineComponent({
     if (props.dateString !== '') {
       store.commit('setCurrentDate', props.dateString);
     }
-
-    watch(
-      () => props.dateString,
-      () => {
-        if (props.dateString !== '') {
-          store.commit('setCurrentDate', props.dateString);
-        }
-      },
-    );
 
     return { photos };
   },
