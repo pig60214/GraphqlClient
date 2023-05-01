@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-dark tw-mb-2">
-    <div class="tw-flex tw-justify-between" v-if="photos.length > 1">
+    <div class="tw-flex tw-justify-between" v-if="photos && photos.length > 1">
       <button type="button" style="line-height: 0" :data-bs-target="`#${carouselId}`" data-bs-slide="prev">
         <span class="carousel-control-prev-icon tw-h-5 tw-w-5" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
