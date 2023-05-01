@@ -45,8 +45,10 @@ export default defineComponent({
         const { date } = dateOfCalendar;
         if (date) {
           dateOfCalendar.posts = posts.value.filter(post => {
-            const from = new Date(post.from);
-            const to = new Date(post.to);
+            const fromStr = post.from.split('-').map(s => Number(s));
+            const toStr = post.to.split('-').map(s => Number(s));
+            const from = new Date(fromStr[0], fromStr[1] - 1, fromStr[2]);
+            const to = new Date(toStr[0], toStr[1] - 1, toStr[2]);
             return date.getTime() >= from.getTime() && date.getTime() <= to.getTime();
           });
         }
