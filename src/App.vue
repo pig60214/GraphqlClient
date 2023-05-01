@@ -1,9 +1,9 @@
 <template>
-  <div id="nav">
+  <!-- <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link :to="`/calendar/${dateToString(currentDate.date)}`">Calendar</router-link>
-  </div>
+  </div> -->
   <router-view/>
 </template>
 
@@ -25,12 +25,23 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: myFirstFont;
+  src: url('./assets/ChenYuluoyan-Thin-Monospaced.ttf');
+  // src: url('./assets/ChenYuluoyan-Thin.ttf');
+}
+
+* {
+  font-family: myFirstFont;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #4c4c4e;
+  font-size: 1.5rem;
+  font-weight: 900;
 }
 
 #nav {

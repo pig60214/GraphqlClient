@@ -3,6 +3,7 @@ $vue-green: #42b983;
 $light-blue: #ceedff;
 $light-red: #ffebeb;
 $light-yellow: #fbf7d9;
+$font-color: #4c4c4e;
 
 
 $colors: (
@@ -11,6 +12,7 @@ $colors: (
   'light-blue': $light-blue,
   'light-yellow': $light-yellow,
   'light-red': $light-red,
+  'font-color': $font-color
 );
 
 @each $key, $value in $colors {

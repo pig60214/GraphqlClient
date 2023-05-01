@@ -1,14 +1,12 @@
 <template>
-  <div id="calendar" class="container rounded-3 shadow" >
-    <div class="row justify-content-md-center bg-vue-blue">
-      <div class="col-xs-auto col-md-4 align-self-center">
+  <div id="calendar" class="container" >
+    <div class="row">
+      <div class="col-xs-auto col-md-3 tw-self-start tw-p-4">
+        <calendar-body-month/>
         <PhotoCarousel :photos="photos" :carouselId="'calendarHeader'"/>
       </div>
-      <div class="col-xs-auto col-md-8 align-self-center bg-white px-0">
-        <div id="calendarBody" class="container">
-          <div class="row my-3">
-            <calendar-body-month/>
-          </div>
+      <div class="col-xs-auto col-md-9 px-0 ">
+        <div id="calendarBody" class="container tw-p-12">  <!-- TODO: change tw-p-12 to vertical align -->
           <div class="row mb-3">
             <calendar-body-dates />
           </div>

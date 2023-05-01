@@ -1,28 +1,30 @@
 <template>
   <div
-    class="col px-1 w-1-out-of-7 pb-1"
-    style="min-height: 5em"
+    class="col px-1 w-1-out-of-7 pb-1 tw-flex tw-flex-col"
+    style="height: 5em"
     @click="chooseDate"
-    :class="{ 'bg-vue-blue text-white rounded-3': isChosedDate }"
+    :class="{ 'bg-font-color': isChosedDate }"
   >
-    <span>
+    <span class="tw-leading-tight" :class="{ 'text-white': isChosedDate }">
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
-    <span
-      class="badge w-100 badge-text-truncate px-0 ps-2 text-start text-vue-blue"
-      v-for="post, index in postsToDisplay"
-      :key="index"
-      :class="`bg-${post.color}`"
-    >
-      {{ post.title }}
-    </span>
-    <span
-      class="badge w-100 badge-text-truncate px-0 ps-2 text-start"
-      v-if="dateOfCalendar.posts && dateOfCalendar.posts.length > 3"
-      :class="isChosedDate ? 'bg-vue-blue' : 'bg-white text-vue-blue'"
-    >
-      ...
-    </span>
+    <div class="tw-flex tw-flex-col tw-space-y-1">
+      <span
+        class="my-badge"
+        v-for="post, index in postsToDisplay"
+        :key="index"
+        :class="`bg-${post.color}`"
+      >
+        {{ post.title }}
+      </span>
+      <span
+        class="my-badge"
+        v-if="dateOfCalendar.posts && dateOfCalendar.posts.length > 3"
+        :class="{ 'text-white': isChosedDate }"
+      >
+        . . .
+      </span>
+    </div>
   </div>
 </template>
 
@@ -88,9 +90,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "~@/scss/colors";
+</style>
 
-.badge-text-truncate {
-  overflow: hidden;
-  vertical-align: bottom;
+<style lang="postcss" scoped>
+.my-badge {
+  @apply  tw-pl-1 tw-rounded tw-leading-none tw-text-left tw-whitespace-nowrap tw-truncate
 }
 </style>

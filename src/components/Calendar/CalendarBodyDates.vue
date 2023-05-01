@@ -1,9 +1,9 @@
 <template>
-<div id="CalendarBodyDates" class="container px-0">
-  <div class="row">
+<div id="CalendarBodyDates" class="container px-0 tw-divide-y tw-divide-black">
+  <div class="row tw-divide-x tw-divide-black">
     <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
   </div>
-  <div class="row" v-for="week, index in weekListOfCurrentMonth" :key="index">
+  <div class="row tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
     <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
   </div>
 </div>
