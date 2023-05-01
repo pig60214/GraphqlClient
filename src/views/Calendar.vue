@@ -8,7 +8,7 @@
       <div class="col-xs-auto col-md-9 px-0 ">
         <div id="calendarBody" class="container tw-p-12">  <!-- TODO: change tw-p-12 to vertical align -->
           <div class="row mb-3">
-            <calendar-body-dates />
+            <router-view/>
           </div>
         </div>
       </div>
@@ -22,14 +22,12 @@ import {
 } from 'vue';
 import { useStore } from '@/store';
 import PhotoCarousel from '../components/PhotoCarousel/PhotoCarousel.vue';
-import CalendarBodyDates from '../components/Calendar/CalendarBodyDates.vue';
 import CalendarBodyMonth from '../components/Calendar/CalendarBodyMonth.vue';
 
 export default defineComponent({
   name: 'Calender',
   components: {
     PhotoCarousel,
-    CalendarBodyDates,
     CalendarBodyMonth,
   },
   props: {

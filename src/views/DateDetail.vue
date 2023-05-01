@@ -1,9 +1,6 @@
 <template>
   <div id="dateDetail" class="container rounded-3 shadow" >
     <div class="row justify-content-md-center">
-      <div class="col-xs-auto col-md-4 align-self-center bg-vue-blue">
-        <PhotoCarousel :carouselId="'DateDetailHeader'" :photos="photos" />
-      </div>
       <div class="col-xs-auto col-md-8 px-0 align-self-center">
         <div class="col-md-9 m-auto">
           <div class="card">
@@ -60,7 +57,6 @@ import {
   computed,
   reactive,
 } from 'vue';
-import PhotoCarousel from '@/components/PhotoCarousel/PhotoCarousel.vue';
 import { useQuery, useResult } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import DateOfCalendar from '@/class/DateOfCalendar';
@@ -68,7 +64,7 @@ import Post from '@/interface/Post';
 import PostEditor from '@/components/DateDetail/PostEditor.vue';
 
 export default defineComponent({
-  components: { PhotoCarousel, PostEditor },
+  components: { PostEditor },
   props: {
     dateString: {
       type: String,
@@ -82,6 +78,8 @@ export default defineComponent({
     const dateOfCalendar = new DateOfCalendar();
     dateOfCalendar.date = new Date(props.dateString);
     const currentDate = ref(dateOfCalendar);
+
+    console.log(props.dateString);
 
     const variable = reactive({
       postsQueryInput: {

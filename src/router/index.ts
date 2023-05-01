@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
+// import Home from '../views/Home.vue';
 import Calendar from '../views/Calendar.vue';
 import DateDetail from '../views/DateDetail.vue';
+import CalendarBodyDates from '../components/Calendar/CalendarBodyDates.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,19 +20,25 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/calendar/:dateString?',
-    name: 'Calendar',
     component: Calendar,
     props: route => ({
       dateString: route.params.dateString,
     }),
-  },
-  {
-    path: '/date-detail/:dateString',
-    name: 'DateDetail',
-    component: DateDetail,
-    props: route => ({
-      dateString: route.params.dateString,
-    }),
+    children: [
+      {
+        name: 'Calendar',
+        path: '',
+        component: CalendarBodyDates,
+      },
+      {
+        name: 'DateDetail',
+        path: 'date-detail',
+        component: DateDetail,
+        props: route => ({
+          dateString: route.params.dateString,
+        }),
+      },
+    ],
   },
 ];
 
