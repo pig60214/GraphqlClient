@@ -5,7 +5,7 @@ import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import Post from '@/interface/Post';
 
-export default function usePostApi(pairsCollection: Ref<FileCaptionPair[][]>, editedPost: Ref<Post>) {
+export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[][]>, editedPost: Ref<Post>) {
   const { mutate: addPostApi } = useMutation(gql`
     mutation ($addPostInput: AddPostInput!) {
       addPost(addPostInput: $addPostInput) {

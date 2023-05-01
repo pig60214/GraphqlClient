@@ -18,9 +18,7 @@ import {
 } from 'vue';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import { useStore } from '@/store';
-import Post from '@/interface/Post';
-import { useQuery, useResult } from '@vue/apollo-composable';
-import gql from 'graphql-tag';
+import useQueryPostApi from '@/composables/useQueryPostApi';
 import CalendarBodyDate from './CalendarBodyDate.vue';
 
 export default defineComponent({
@@ -30,45 +28,18 @@ export default defineComponent({
     const store = useStore();
     const { calendar } = store.state.currentMonth;
     const weekListOfCurrentMonth = ref(calendar);
-    const variable = reactive({
-      postsQueryInput: {
-        from: store.state.currentMonth.firstDateString,
-        to: store.state.currentMonth.lastDateString,
-      },
-    });
 
     watch(
       () => store.state.currentMonth,
       (newVal, oldVal) => {
         if (newVal.equals(oldVal)) return;
         weekListOfCurrentMonth.value = store.state.currentMonth.calendar;
-        variable.postsQueryInput.from = store.state.currentMonth.firstDateString;
-        variable.postsQueryInput.to = store.state.currentMonth.lastDateString;
       },
     );
 
-    const { result } = useQuery(gql`
-      query ($postsQueryInput: PostsQueryInput!){
-        posts(postsQueryInput: $postsQueryInput){
-          id,
-          title,
-          from,
-          to,
-          color,
-          photos {
-            path,
-            caption
-          },
-        }
-      }
-    `, variable,
-    {
-      fetchPolicy: 'no-cache',
-    });
-    const posts = useResult(result, [] as Post[], data => data.posts as Post[]);
-
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
+    const posts = useQueryPostApi();
     const getPosts = (dateOfCalendar: DateOfCalendar) => {
       if (posts.value.length > 0) {
         const { date } = dateOfCalendar;

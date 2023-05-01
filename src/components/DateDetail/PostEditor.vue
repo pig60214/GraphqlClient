@@ -59,7 +59,7 @@ import {
 } from 'vue';
 import FileCaptionPair from '@/interface/FileCaptionPair';
 import Post from '@/interface/Post';
-import usePostApi from '@/composables/usePostApi';
+import useMutationPostApi from '@/composables/useMutationPostApi';
 import EnumColor from '@/enum/EnumColor';
 import PostEditorAddPhotoArea from './PostEditorAddPhotoArea.vue';
 
@@ -121,8 +121,7 @@ export default defineComponent({
 
     watch(editingPost, () => { clearPhotoArea(); });
 
-    // @ts-ignore
-    const { addPost, updatePost } = usePostApi(pairsCollection, editingPost);
+    const { addPost, updatePost } = useMutationPostApi(pairsCollection, editingPost);
     const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
 
     return {

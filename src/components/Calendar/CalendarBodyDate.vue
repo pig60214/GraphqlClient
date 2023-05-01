@@ -30,7 +30,7 @@
 import { computed, defineComponent } from 'vue';
 import { useStore } from '@/store';
 import DateOfCalendar from '@/class/DateOfCalendar';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'CalendarBodyDate',
@@ -45,13 +45,14 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
-    const init = () => {
-      if (store.state.currentDate.dateString === props.dateOfCalendar.dateString) {
+    const initCurrentDate = () => {
+      const route = useRoute();
+      if (route.params.dateString === props.dateOfCalendar.dateString) {
         store.state.currentDate = props.dateOfCalendar;
       }
     };
 
-    init();
+    initCurrentDate();
 
     const chooseDate = () => {
       if (props.dateOfCalendar !== undefined && store.state.currentDate.equals(props.dateOfCalendar)) {
