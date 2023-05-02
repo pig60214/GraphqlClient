@@ -1,7 +1,7 @@
 <template>
   <div class="modal-body border-top">
   <div class="input-group mb-3">
-    <span class="input-group-text">照片標題</span>
+    <span class="input-group-text">Photo Title</span>
     <input type="text" class="form-control" v-model="caption">
   </div>
   <input type="file" multiple="multiple" accept="image/*" class="form-control" @change="getFiles">
@@ -45,3 +45,19 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+* {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+</style>
+
+<style lang="postcss" scoped>
+.input-group-text {
+  @apply tw-bg-transparent
+}
+
+.form-control, .input-group-text {
+  @apply tw-border-black
+}
+</style>

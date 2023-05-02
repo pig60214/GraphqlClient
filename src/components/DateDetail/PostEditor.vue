@@ -1,12 +1,12 @@
 <template>
   <div class="modal fade" id="postEditor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content bg-bg-color">
         <div class="modal-header">
           <div class="input-group">
-            <span class="input-group-text">標題</span>
+            <span class="input-group-text">Title</span>
             <input type="text" class="form-control" v-model="editingPost.title">
-            <button class="btn btn-outline-secondary" type="button" @click="editingPost.title = ''">✖</button>
+            <button class="btn btn-outline-dark" type="button" @click="editingPost.title = ''">✖</button>
           </div>
         </div>
         <div class="modal-body">
@@ -16,16 +16,16 @@
             <input type="date" class="form-control" v-model="editingPost.to">
           </div>
           <div class="input-group mb-3 justify-content-end">
-            <button class="btn btn-sm btn-outline-secondary" type="button" @click="editingPost.to = editingPost.from">同起始日</button>
+            <button class="btn btn-sm btn-outline-dark" type="button" @click="editingPost.to = editingPost.from">Same Start</button>
           </div>
           <div class="input-group">
-            <span class="input-group-text">顏色</span>
+            <span class="input-group-text">Color</span>
             <input type="radio" class="btn-check" name="colorOptions" id="light-blue" value="light-blue" v-model="editingPost.color">
-            <label class="btn btn-light-blue mx-2" for="light-blue">藍</label>
+            <label class="btn btn-light-blue mx-2" for="light-blue">Ｂ</label>
             <input type="radio" class="btn-check" name="colorOptions" id="light-yellow" value="light-yellow" v-model="editingPost.color">
-            <label class="btn btn-light-yellow me-2" for="light-yellow">黃</label>
+            <label class="btn btn-light-yellow me-2" for="light-yellow">Ｙ</label>
             <input type="radio" class="btn-check" name="colorOptions" id="light-red" value="light-red" v-model="editingPost.color">
-            <label class="btn btn-light-red" for="light-red">紅</label>
+            <label class="btn btn-light-red" for="light-red">Ｒ</label>
           </div>
         </div>
         <div class="container">
@@ -40,9 +40,9 @@
         </div>
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">新增照片</button>
-          <button type="button" class="btn btn-sm btn-primary" @click="saveAction">儲存</button>
-          <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal" aria-label="關閉">關閉</button>
+          <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">Add Photo</button>
+          <button type="button" class="btn btn-sm btn-secondary" @click="saveAction">Save</button>
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
         </div>
       </div>
     </div>
@@ -137,4 +137,22 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "~@/scss/colors";
+
+* {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.btn-secondary {
+  background: $font-color;
+}
+</style>
+
+<style lang="postcss" scoped>
+.input-group-text {
+  @apply tw-bg-transparent
+}
+
+.form-control, .input-group-text {
+  @apply tw-border-black
+}
 </style>
