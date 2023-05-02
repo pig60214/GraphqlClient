@@ -25,16 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-@font-face {
-  font-family: myFirstFont;
-  src: url('./assets/ChenYuluoyan-Thin-Monospaced.ttf');
-  // src: url('./assets/ChenYuluoyan-Thin.ttf');
-}
-
-* {
-  font-family: myFirstFont;
-}
-
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
