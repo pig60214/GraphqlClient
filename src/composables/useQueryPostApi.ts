@@ -1,28 +1,10 @@
-import { reactive, Ref, watch } from 'vue';
+import { Ref } from 'vue';
 import { useQuery, useResult } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import Post from '@/interface/Post';
-import { useStore } from '@/store';
+import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 
-export default function useQueryPostApi() {
-  const store = useStore();
-
-  const variable = reactive({
-    postsQueryInput: {
-      from: store.state.currentMonth.firstDateString,
-      to: store.state.currentMonth.lastDateString,
-    },
-  });
-
-  watch(
-    () => store.state.currentMonth,
-    (newVal, oldVal) => {
-      if (newVal.equals(oldVal)) return;
-      variable.postsQueryInput.from = store.state.currentMonth.firstDateString;
-      variable.postsQueryInput.to = store.state.currentMonth.lastDateString;
-    },
-  );
-
+export default function useQueryPostApi(variable: Ref<PostsQueryInput>) {
   const { result } = useQuery(gql`
     query ($postsQueryInput: PostsQueryInput!){
       posts(postsQueryInput: $postsQueryInput){
@@ -37,7 +19,9 @@ export default function useQueryPostApi() {
         },
       }
     }
-  `, variable,
+  `, {
+    postsQueryInput: variable.value,
+  },
   {
     fetchPolicy: 'no-cache',
   });

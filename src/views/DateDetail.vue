@@ -44,13 +44,12 @@ import {
   defineComponent,
   ref,
   computed,
-  reactive,
+  Ref,
 } from 'vue';
-import { useQuery, useResult } from '@vue/apollo-composable';
-import gql from 'graphql-tag';
 import DateOfCalendar from '@/class/DateOfCalendar';
-import Post from '@/interface/Post';
 import PostEditor from '@/components/DateDetail/PostEditor.vue';
+import useQueryPostApi from '@/composables/useQueryPostApi';
+import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 
 export default defineComponent({
   components: { PostEditor },
@@ -71,46 +70,12 @@ export default defineComponent({
     dateOfCalendar.date = new Date(props.dateString);
     const currentDate = ref(dateOfCalendar);
 
-    const variable = reactive({
-      postsQueryInput: {
-        from: props.dateString,
-        to: props.dateString,
-      },
+    const variable: Ref<PostsQueryInput> = ref({
+      from: props.dateString,
+      to: props.dateString,
     });
 
-    const { result } = useQuery(gql`
-      query ($postsQueryInput: PostsQueryInput!){
-        posts(postsQueryInput: $postsQueryInput){
-          id,
-          title,
-          from,
-          to,
-          color,
-          photos {
-            path,
-            caption
-          },
-        }
-      }
-    `, variable,
-    {
-      fetchPolicy: 'no-cache',
-    });
-
-    const posts = useResult(result, [] as Post[], data => {
-      const toPostList = (data.posts as any[]).map(postFromApi => {
-        const post = {
-          postId: postFromApi.id,
-          title: postFromApi.title,
-          from: postFromApi.from.substr(0, 10),
-          to: postFromApi.to.substr(0, 10),
-          color: postFromApi.color,
-          photos: postFromApi.photos,
-        } as Post;
-        return post;
-      });
-      return toPostList;
-    });
+    const posts = useQueryPostApi(variable);
 
     const currentPostIndex = ref(0);
     const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);

@@ -13,12 +13,14 @@
 import {
   defineComponent,
   reactive,
+  Ref,
   ref,
   watch,
 } from 'vue';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import { useStore } from '@/store';
 import useQueryPostApi from '@/composables/useQueryPostApi';
+import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 import CalendarBodyDate from './CalendarBodyDate.vue';
 
 export default defineComponent({
@@ -39,7 +41,21 @@ export default defineComponent({
 
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
-    const posts = useQueryPostApi();
+    const variable: Ref<PostsQueryInput> = ref({
+      from: store.state.currentMonth.firstDateString,
+      to: store.state.currentMonth.lastDateString,
+    });
+
+    watch(
+      () => store.state.currentMonth,
+      (newVal, oldVal) => {
+        if (newVal.equals(oldVal)) return;
+        variable.value.from = store.state.currentMonth.firstDateString;
+        variable.value.to = store.state.currentMonth.lastDateString;
+      },
+    );
+
+    const posts = useQueryPostApi(variable);
     const getPosts = (dateOfCalendar: DateOfCalendar) => {
       if (posts.value.length > 0) {
         const { date } = dateOfCalendar;
