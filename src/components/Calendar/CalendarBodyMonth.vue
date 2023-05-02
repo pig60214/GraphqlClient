@@ -48,7 +48,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     // const monthList = ['一 月', '二 月', '三 月', '四 月', '五 月', '六 月', '七 月', '八 月', '九 月', '十 月', '十一月', '十二月'];
-    // 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+    // const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const eMonthList = [
       { value: 'January', place: 'tw-top-1/2 tw-left-3 tw-rotate-105' },
       { value: 'February', place: 'tw-top-1/2 tw-left-2/3 tw-rotate-0' },
