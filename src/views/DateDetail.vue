@@ -1,5 +1,5 @@
 <template>
-  <div id="dateDetail" class="tw-divide-y tw-divide-black">
+  <div id="dateDetail" class="tw-divide-y tw-divide-black" :class="{ 'tw-animate-pulse': loading }">
     <h2 class="my-1 tw-text-3xl"> {{ weekList[currentDate.date.getDay()] }} </h2>
     <div class="tw-flex tw-divide-x tw-divide-black">
       <div id="date" class="col-4 align-self-center">
@@ -75,7 +75,7 @@ export default defineComponent({
       to: props.dateString,
     });
 
-    const { posts, refetch } = useQueryPostApi(variable);
+    const { posts, refetch, loading } = useQueryPostApi(variable);
 
     const currentPostIndex = ref(0);
     const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);
@@ -102,6 +102,7 @@ export default defineComponent({
       clickPost,
       clickAddPost,
       refetch,
+      loading,
     };
   },
 });

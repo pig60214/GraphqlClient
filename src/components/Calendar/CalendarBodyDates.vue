@@ -1,5 +1,5 @@
 <template>
-<div id="CalendarBodyDates" class="container px-0 tw-divide-y tw-divide-black">
+<div id="CalendarBodyDates" class="container px-0 tw-divide-y tw-divide-black" :class="{ 'tw-animate-pulse': loading }">
   <div class="row tw-divide-x tw-divide-black">
     <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
   </div>
@@ -55,7 +55,7 @@ export default defineComponent({
       },
     );
 
-    const { posts } = useQueryPostApi(variable);
+    const { posts, loading } = useQueryPostApi(variable);
     const getPosts = (dateOfCalendar: DateOfCalendar) => {
       if (posts.value.length > 0) {
         const { date } = dateOfCalendar;
@@ -77,6 +77,7 @@ export default defineComponent({
       dayList,
       weekListOfCurrentMonth,
       getPosts,
+      loading,
     };
   },
 });
