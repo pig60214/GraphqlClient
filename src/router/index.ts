@@ -4,11 +4,14 @@ import Calendar from '../views/Calendar.vue';
 import DateDetail from '../views/DateDetail.vue';
 import CalendarBodyDates from '../components/Calendar/CalendarBodyDates.vue';
 
+const today = new Date();
+const todayStr = today.toISOString().split('T')[0];
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Calendar,
+    redirect: { name: 'Calendar' },
   },
   {
     path: '/about',
@@ -23,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Calendar,
     props: route => ({
       dateString: route.params.dateString,
+      defaultValue: todayStr,
     }),
     children: [
       {
