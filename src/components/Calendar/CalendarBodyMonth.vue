@@ -75,8 +75,8 @@ export default defineComponent({
       router.push({ name: 'Calendar', params: { dateString: dateToString(addMonth) } });
     };
 
+    const route = useRoute();
     const goToCalender = () => {
-      const route = useRoute();
       router.push({ name: 'Calendar', params: { dateString: route.params.dateString } });
     };
 
