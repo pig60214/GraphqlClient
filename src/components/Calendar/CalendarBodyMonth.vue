@@ -53,8 +53,8 @@ export default defineComponent({
       { value: 'January', place: 'tw-top-1/2 tw-left-3 tw-rotate-105' },
       { value: 'February', place: 'tw-top-1/2 tw-left-2/3 tw-rotate-0' },
       { value: 'March', place: 'tw-top-20 tw--left-0 tw--rotate-45' },
-      { value: 'April', place: 'tw-top-1/2 tw-left-16 tw-rotate-90' },
-      { value: 'May', place: 'tw-top-12 tw-left-12 tw--rotate-12' },
+      { value: 'April', place: 'my-animate-apr tw-top-1/2 tw-left-16 tw-rotate-90' },
+      { value: 'May', place: 'my-animate-may tw-top-12 tw-left-12 tw--rotate-12' },
       { value: 'June', place: 'tw-bottom-36 tw-left-10 tw--rotate-12' },
       { value: 'July', place: 'my-animate-july tw-top-9 tw-left-11 tw-rotate-40' },
       { value: 'August', place: 'tw-top-20 tw--left-5 tw--rotate-105' },
@@ -103,6 +103,14 @@ export default defineComponent({
   animation-duration: 1s;
 }
 
+@keyframes apr {
+  from {left: 100%}
+}
+@keyframes may {
+  0% {left: 0}
+  85% {left: 100%}
+  90% {left: 100%}
+}
 @keyframes july {
   from {top: 0; left: 100%}
 }
@@ -117,7 +125,7 @@ export default defineComponent({
   from {top: 0}
 }
 
-$monthes: july, sep, oct, nov;
+$monthes: apr, may, july, sep, oct, nov;
 
 @each $value in $monthes {
   .my-animate-#{$value} {
