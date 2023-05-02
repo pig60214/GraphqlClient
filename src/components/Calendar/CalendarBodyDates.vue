@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   reactive,
   Ref,
@@ -55,8 +56,10 @@ export default defineComponent({
       },
     );
 
-    const { posts, loading } = useQueryPostApi(variable);
-    const getPosts = (dateOfCalendar: DateOfCalendar) => {
+    const { posts: source, loading } = useQueryPostApi(variable);
+    const posts = computed(() => loading.value ? [] : source.value);
+
+    const getPosts = computed(() => (dateOfCalendar: DateOfCalendar) => {
       if (posts.value.length > 0) {
         const { date } = dateOfCalendar;
         if (date) {
@@ -68,10 +71,12 @@ export default defineComponent({
             return date.getTime() >= from.getTime() && date.getTime() <= to.getTime();
           });
         }
+      } else {
+        dateOfCalendar.posts = [];
       }
 
       return dateOfCalendar;
-    };
+    });
 
     return {
       dayList,
