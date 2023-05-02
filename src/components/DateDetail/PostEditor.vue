@@ -41,8 +41,8 @@
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">Add Photo</button>
-          <button type="button" class="btn btn-sm btn-secondary" @click="saveAction">Save</button>
-          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="button" class="btn btn-sm btn-secondary" :class="{'disabled' : loading}"  @click="saveAction">Save</button>
+          <button type="button" id="closeBtn" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
         </div>
       </div>
     </div>
@@ -121,8 +121,23 @@ export default defineComponent({
 
     watch(editingPost, () => { clearPhotoArea(); });
 
-    const { addPost, updatePost } = useMutationPostApi(pairsCollection, editingPost);
+    const {
+      addPost,
+      updatePost,
+      addPostApiLoading,
+      updatePostApiLoading,
+    } = useMutationPostApi(pairsCollection, editingPost);
     const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
+    const loading = computed(() => isNewPost.value ? addPostApiLoading.value : updatePostApiLoading.value);
+
+    watch(loading, (to, from) => {
+      if (from && !to && isNewPost.value) { // from true to false
+        const closeBtn = document.getElementById('closeBtn');
+        if (closeBtn) {
+          closeBtn.click();
+        }
+      }
+    });
 
     return {
       editingPost,
@@ -130,6 +145,8 @@ export default defineComponent({
       addPhotoArea,
       savePhotosToCollection,
       saveAction,
+      loading,
+      addPostApiLoading,
     };
   },
 });

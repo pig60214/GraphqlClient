@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import Post from '@/interface/Post';
 
 export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[][]>, editedPost: Ref<Post>) {
-  const { mutate: addPostApi } = useMutation(gql`
+  const { mutate: addPostApi, loading: addPostApiLoading } = useMutation(gql`
     mutation ($addPostInput: AddPostInput!) {
       addPost(addPostInput: $addPostInput) {
         title,
@@ -28,7 +28,7 @@ export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[
     });
   };
 
-  const { mutate: updatePostApi } = useMutation(gql`
+  const { mutate: updatePostApi, loading: updatePostApiLoading } = useMutation(gql`
     mutation ($updatePostInput: UpdatePostInput!) {
       updatePost(updatePostInput: $updatePostInput) {
         title,
@@ -54,5 +54,7 @@ export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[
   return {
     addPost,
     updatePost,
+    addPostApiLoading,
+    updatePostApiLoading,
   };
 }
