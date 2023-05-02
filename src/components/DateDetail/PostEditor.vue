@@ -5,7 +5,7 @@
         <div class="modal-header">
           <div class="input-group">
             <span class="input-group-text">Title</span>
-            <input type="text" class="form-control" v-model="editingPost.title">
+            <input type="text" class="form-control" :placeholder="dateString" v-model="editingPost.title">
             <button class="btn btn-outline-dark" type="button" @click="editingPost.title = ''">✖</button>
           </div>
         </div>
@@ -85,13 +85,13 @@ export default defineComponent({
   },
   setup(props) {
     const { isNewPost, dateString, post } = toRefs(props);
-    const existingPost = ref(props.post);
+    const existingPost = ref({ ...props.post } as Post);
 
-    watch(post, () => { existingPost.value = post.value; });
+    watch(post, () => { existingPost.value = { ...props.post } as Post; });
 
     const newPost = ref({
       id: 0,
-      title: dateString.value,
+      title: '',
       from: dateString.value,
       to: dateString.value,
       color: EnumColor.LightBlue,
@@ -131,7 +131,15 @@ export default defineComponent({
       addPostApiLoading,
       updatePostApiLoading,
     } = useMutationPostApi(pairsCollection, editingPost);
-    const saveAction = computed(() => isNewPost.value ? addPost : updatePost);
+
+    const saveAction = () => {
+      if (editingPost.value.title === '') {
+        editingPost.value.title = dateString.value;
+      }
+
+      const save = isNewPost.value ? addPost : updatePost;
+      save();
+    };
     const loading = computed(() => isNewPost.value ? addPostApiLoading.value : updatePostApiLoading.value);
 
     watch(loading, (to, from) => {
