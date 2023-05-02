@@ -5,7 +5,7 @@ import Post from '@/interface/Post';
 import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 
 export default function useQueryPostApi(variable: Ref<PostsQueryInput>) {
-  const { result } = useQuery(gql`
+  const { result, refetch } = useQuery(gql`
     query ($postsQueryInput: PostsQueryInput!){
       posts(postsQueryInput: $postsQueryInput){
         id,
@@ -27,5 +27,5 @@ export default function useQueryPostApi(variable: Ref<PostsQueryInput>) {
   });
   // @ts-ignore
   const posts: Ref<Readonly<Post[]>> = useResult(result, [] as Post[], data => data.posts as Post[]);
-  return posts;
+  return { posts, refetch };
 }

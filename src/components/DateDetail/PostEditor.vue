@@ -69,7 +69,7 @@ export default defineComponent({
   props: {
     isNewPost: {
       type: Boolean,
-      equired: true,
+      required: true,
     },
     dateString: {
       type: String,
@@ -77,6 +77,10 @@ export default defineComponent({
     },
     post: {
       type: Object as () => Post,
+    },
+    refetch: {
+      type: Function,
+      required: true,
     },
   },
   setup(props) {
@@ -86,7 +90,7 @@ export default defineComponent({
     watch(post, () => { existingPost.value = post.value; });
 
     const newPost = ref({
-      postId: 0,
+      id: 0,
       title: dateString.value,
       from: dateString.value,
       to: dateString.value,
@@ -131,11 +135,12 @@ export default defineComponent({
     const loading = computed(() => isNewPost.value ? addPostApiLoading.value : updatePostApiLoading.value);
 
     watch(loading, (to, from) => {
-      if (from && !to && isNewPost.value) { // from true to false
+      if (from && !to) { // from loading to not loading
         const closeBtn = document.getElementById('closeBtn');
         if (closeBtn) {
           closeBtn.click();
         }
+        props.refetch();
       }
     });
 

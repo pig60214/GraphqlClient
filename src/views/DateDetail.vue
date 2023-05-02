@@ -36,7 +36,7 @@
       </button>
     </div>
   </div>
-  <PostEditor :isNewPost="isNewPost" :dateString="dateString" :post="currentPost" />
+  <PostEditor :isNewPost="isNewPost" :dateString="dateString" :post="currentPost" :refetch="refetch" />
 </template>
 
 <script lang="ts">
@@ -75,7 +75,7 @@ export default defineComponent({
       to: props.dateString,
     });
 
-    const posts = useQueryPostApi(variable);
+    const { posts, refetch } = useQueryPostApi(variable);
 
     const currentPostIndex = ref(0);
     const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);
@@ -101,6 +101,7 @@ export default defineComponent({
       isNewPost,
       clickPost,
       clickAddPost,
+      refetch,
     };
   },
 });

@@ -41,7 +41,7 @@ export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[
     const base64FileCaptionPairs = await fileToBase64(pairs);
     updatePostApi({
       updatePostInput: {
-        id: editedPost.value.postId,
+        id: editedPost.value.id,
         title: editedPost.value.title,
         from: editedPost.value.from,
         to: editedPost.value.to,

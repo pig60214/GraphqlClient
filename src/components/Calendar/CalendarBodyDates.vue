@@ -55,7 +55,7 @@ export default defineComponent({
       },
     );
 
-    const posts = useQueryPostApi(variable);
+    const { posts } = useQueryPostApi(variable);
     const getPosts = (dateOfCalendar: DateOfCalendar) => {
       if (posts.value.length > 0) {
         const { date } = dateOfCalendar;
