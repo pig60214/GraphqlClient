@@ -1,15 +1,13 @@
 <template>
   <div id="calendar" class="container" >
-    <div class="row">
-      <div class="col-xs-auto col-md-3 tw-self-start tw-p-4">
+    <div class="row tw-items-center tw-h-screen">
+      <div class="col-xs-auto col-md-3 tw-p-4">
         <calendar-body-month/>
         <PhotoCarousel :photos="photos" :carouselId="'calendarHeader'"/>
       </div>
-      <div class="col-xs-auto col-md-9 px-0 ">
-        <div id="calendarBody" class="container tw-p-12">  <!-- TODO: change tw-p-12 to vertical align -->
-          <div class="row mb-3">
-            <router-view/>
-          </div>
+      <div class="col-xs-auto col-md-9 px-0">
+        <div id="calendarBody" class="container">
+          <router-view/>
         </div>
       </div>
     </div>
