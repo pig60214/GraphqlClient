@@ -10,7 +10,7 @@
     </span>
     <div class="tw-flex tw-flex-col tw-space-y-1">
       <span
-        class="my-badge"
+        class="my-badge my-animate-show-up"
         v-for="post, index in postsToDisplay"
         :key="index"
         :class="`bg-${post.color}`"
@@ -90,6 +90,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "~@/scss/colors";
+
+@keyframes my-animate-show-up {
+  0% {color: transparent; background: transparent;}
+  30% {color: transparent;}
+}
+
+.my-animate-show-up {
+  animation-name: my-animate-show-up;
+  animation-duration: 1s;
+}
+
 </style>
 
 <style lang="postcss" scoped>

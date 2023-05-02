@@ -6,7 +6,7 @@
           <div class="tw-w-1/5"></div>
           <div class="tw-w-1/3">
             <div class="tw-relative">
-              <span class="tw-leading-none" style="font-size: 16rem">{{ month }}<span class="tw-text-4xl">{{ currentMonth.year }}</span>
+              <span class="tw-leading-none my-animate-month" style="font-size: 16rem">{{ month }}<span class="tw-text-4xl">{{ currentMonth.year }}</span>
               </span>
               <div class="tw-transform tw-absolute" :class="eMonthList[index].place">{{eMonthList[index].value}}</div>
             </div>
@@ -56,11 +56,11 @@ export default defineComponent({
       { value: 'April', place: 'tw-top-1/2 tw-left-16 tw-rotate-90' },
       { value: 'May', place: 'tw-top-12 tw-left-12 tw--rotate-12' },
       { value: 'June', place: 'tw-bottom-36 tw-left-10 tw--rotate-12' },
-      { value: 'July', place: 'tw-top-9 tw-left-11 tw-rotate-40' },
+      { value: 'July', place: 'my-animate-july tw-top-9 tw-left-11 tw-rotate-40' },
       { value: 'August', place: 'tw-top-20 tw--left-5 tw--rotate-105' },
-      { value: 'September', place: 'tw-top-20 tw-left-9 tw-rotate-105' },
-      { value: 'ctober', place: 'tw-top-36 tw-left-36 tw-rotate-0' },
-      { value: 'November', place: 'tw-top-28 tw-left-8 tw-rotate-90' },
+      { value: 'September', place: 'my-animate-sep tw-top-20 tw-left-9 tw-rotate-105' },
+      { value: 'ctober', place: 'my-animate-oct tw-top-36 tw-left-36 tw-rotate-0' },
+      { value: 'November', place: 'my-animate-nov tw-top-28 tw-left-8 tw-rotate-90' },
       { value: 'December', place: 'tw-top-1/2 tw-left-32 tw-rotate-0' },
     ];
     // const monthList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
@@ -94,15 +94,35 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div.new_html_code {
-  width:150px;
-  height:100px;
-  min-width:150px;
-  min-height:100px;
-  max-width:200px;
-  max-height:100px;
-  overflow:hidden;
-  display:block;
-  border:1px solid red;
+@keyframes month {
+  from {color: transparent;}
+}
+
+.my-animate-month {
+  animation-name: month;
+  animation-duration: 1s;
+}
+
+@keyframes july {
+  from {top: 0; left: 100%}
+}
+@keyframes sep {
+  from {top: 90%}
+}
+@keyframes oct {
+  0%   {color: transparent;}
+  10%   {color: transparent;}
+}
+@keyframes nov {
+  from {top: 0}
+}
+
+$monthes: july, sep, oct, nov;
+
+@each $value in $monthes {
+  .my-animate-#{$value} {
+    animation-name: $value;
+    animation-duration: 3s;
+  }
 }
 </style>
