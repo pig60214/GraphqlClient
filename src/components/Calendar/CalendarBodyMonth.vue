@@ -2,7 +2,7 @@
   <div id="calendarBodyMonth" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-interval="false">
     <div class="carousel-inner">
       <div v-for="month, index in monthList" :key="index" class="carousel-item" :class="{ active : index == currentMonth.month }">
-        <h1 class="mb-0 tw-flex">
+        <h1 class="mb-0 tw-flex tw-cursor-pointer" @click="goToCalender">
           <div class="tw-w-1/5"></div>
           <div class="tw-w-1/3">
             <div class="tw-relative">
@@ -40,7 +40,7 @@ import {
   defineComponent,
   ref,
 } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import dateToString from '@/helpers/dateFormateHelper';
 
 export default defineComponent({
@@ -75,6 +75,11 @@ export default defineComponent({
       router.push({ name: 'Calendar', params: { dateString: dateToString(addMonth) } });
     };
 
+    const goToCalender = () => {
+      const route = useRoute();
+      router.push({ name: 'Calendar', params: { dateString: route.params.dateString } });
+    };
+
     return {
       monthList,
       eMonthList,
@@ -82,6 +87,7 @@ export default defineComponent({
       showYearSelection,
       showMonthSelection,
       goToAddMonth,
+      goToCalender,
     };
   },
 });
