@@ -2,9 +2,9 @@
   <div id="calendarBodyMonth" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-interval="false">
     <div class="carousel-inner">
       <div v-for="month, index in monthList" :key="index" class="carousel-item" :class="{ active : index == currentMonth.month }">
-        <h1 class="mb-0 row">
-          <div class="col col-2"></div>
-          <div class="col col-4">
+        <h1 class="mb-0 tw-flex">
+          <div class="tw-w-1/5"></div>
+          <div class="tw-w-1/3">
             <div class="tw-relative">
               <span class="tw-leading-none" style="font-size: 16rem">{{ month }}<span class="tw-text-4xl">{{ currentMonth.year }}</span>
               </span>
@@ -17,17 +17,6 @@
               </select>
             </span> -->
           </div>
-          <div class="col col-4 text-start">
-            <!-- <span v-if="!showYearSelection" @click="showYearSelection = true">{{ currentMonth.year }}</span>
-            <span v-else>
-              <select class="form-select form-select-lg" @change="showYearSelection = false" v-model="currentMonth.year">
-                <option :value="currentMonth.year - 1">{{ currentMonth.year - 1 }}</option>
-                <option :value="currentMonth.year">{{ currentMonth.year }}</option>
-                <option :value="currentMonth.year + 1">{{ currentMonth.year + 1 }}</option>
-              </select>
-            </span> -->
-          </div>
-          <div class="col col-2"></div>
         </h1>
       </div>
     </div>
