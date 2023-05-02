@@ -71,8 +71,6 @@ export default defineComponent({
     dateOfCalendar.date = new Date(props.dateString);
     const currentDate = ref(dateOfCalendar);
 
-    console.log(props.dateString);
-
     const variable = reactive({
       postsQueryInput: {
         from: props.dateString,
