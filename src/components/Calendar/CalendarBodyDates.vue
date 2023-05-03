@@ -29,16 +29,7 @@ export default defineComponent({
   name: 'CalendarBodyDates',
   setup() {
     const store = useStore();
-    const { calendar } = store.state.currentMonth;
-    const weekListOfCurrentMonth = ref(calendar);
-
-    watch(
-      () => store.state.currentMonth,
-      (newVal, oldVal) => {
-        if (newVal.equals(oldVal)) return;
-        weekListOfCurrentMonth.value = store.state.currentMonth.calendar;
-      },
-    );
+    const weekListOfCurrentMonth = computed(() => store.state.currentMonth.calendar);
 
     const dayList = reactive(['日', '一', '二', '三', '四', '五', '六']);
 
