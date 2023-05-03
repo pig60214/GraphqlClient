@@ -17,8 +17,7 @@ export const store = createStore<State>({
   },
   mutations: {
     setCurrentMonth(state, dateString: string) {
-      const notISODateString = dateString.replace(/-/g, '.');
-      const date = new Date(notISODateString);
+      const date = new Date(dateString);
       const monthOfCalendar = new MonthOfCalendar(date.getFullYear(), date.getMonth());
       state.currentMonth = monthOfCalendar;
     },
