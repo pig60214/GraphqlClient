@@ -41,9 +41,22 @@
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">Add Photo</button>
-          <button type="button" class="btn btn-sm btn-secondary" :class="{'disabled' : loading}"  @click="saveAction">Save</button>
+          <button type="button" class="btn btn-sm btn-secondary"  @click="saveAction">Save</button>
           <button type="button" id="closeBtn" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
         </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tw-w-screen tw-h-screen tw-overflow-hidden tw-absolute tw-top-0 tw-left-0 bg-bg-color tw-opacity-95"
+    style="z-index: 2147483647"
+    :class="{'tw-hidden': !masked}"
+  >
+    <div class="centered-element" :class="{'tw-animate-pulse': masked}">
+      <div class="tw-flex tw-space-x-4" :class="{'tw-animate-bounce': masked}">
+        <SvgIcon :svgName="'icon-upload'" :className="'tw-w-20 text-light-red'" />
+        <SvgIcon :svgName="'icon-upload'" :className="'tw-w-20 text-light-blue'" />
+        <SvgIcon :svgName="'icon-upload'" :className="'tw-w-20 text-light-yellow'" />
       </div>
     </div>
   </div>
@@ -62,9 +75,10 @@ import Post from '@/interface/Post';
 import useMutationPostApi from '@/composables/useMutationPostApi';
 import EnumColor from '@/enum/EnumColor';
 import PostEditorAddPhotoArea from './PostEditorAddPhotoArea.vue';
+import SvgIcon from '../SvgIcon.vue';
 
 export default defineComponent({
-  components: { PostEditorAddPhotoArea },
+  components: { PostEditorAddPhotoArea, SvgIcon },
   name: 'PostEditor',
   props: {
     isNewPost: {
@@ -132,7 +146,10 @@ export default defineComponent({
       updatePostApiLoading,
     } = useMutationPostApi(pairsCollection, editingPost);
 
+    const masked = ref(false);
+
     const saveAction = () => {
+      masked.value = true;
       if (editingPost.value.title === '') {
         editingPost.value.title = dateString.value;
       }
@@ -148,6 +165,7 @@ export default defineComponent({
         if (closeBtn) {
           closeBtn.click();
         }
+        masked.value = false;
         props.refetch();
       }
     });
@@ -158,8 +176,7 @@ export default defineComponent({
       addPhotoArea,
       savePhotosToCollection,
       saveAction,
-      loading,
-      addPostApiLoading,
+      masked,
     };
   },
 });
@@ -174,6 +191,13 @@ export default defineComponent({
 
 .btn-secondary {
   background: $font-color;
+}
+
+.centered-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
 
