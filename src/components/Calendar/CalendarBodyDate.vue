@@ -1,14 +1,13 @@
 <template>
   <div
-    class="col px-1 w-1-out-of-7 pb-1 tw-flex tw-flex-col"
-    style="height: 5em"
+    class="col px-1 w-1-out-of-7 pb-1 tw-flex tw-flex-col tw-h-10 md:tw-h-28"
     @click="chooseDate"
     :class="{ 'bg-font-color': isChosedDate }"
   >
-    <span class="tw-leading-tight" :class="{ 'text-white': isChosedDate }">
+    <span class="tw-leading-tight" :class="{ 'text-white': isChosedDate, 'tw-bg-black tw-rounded-full md:tw-bg-transparent': hasPosts }" >
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
-    <div class="tw-flex tw-flex-col tw-space-y-1">
+    <div class="tw-hidden md:tw-flex tw-flex-col tw-space-y-1">
       <span
         class="my-badge my-animate-show-up"
         v-for="post, index in postsToDisplay"
@@ -75,16 +74,20 @@ export default defineComponent({
 
     const postsToDisplay = computed(() => {
       const { posts } = props.dateOfCalendar;
-      if (posts && posts.length > 3) {
+      if (!posts) return [];
+      if (posts.length > 3) {
         return posts.slice(0, 2);
       }
       return posts;
     });
 
+    const hasPosts = computed(() => postsToDisplay.value.length > 0);
+
     return {
       chooseDate,
       isChosedDate,
       postsToDisplay,
+      hasPosts,
     };
   },
 });

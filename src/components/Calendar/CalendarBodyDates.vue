@@ -1,12 +1,15 @@
 <template>
-<div id="CalendarBodyDates" class="container px-0 tw-divide-y tw-divide-black" :class="{ 'tw-animate-pulse': loading }">
-  <div class="row tw-divide-x tw-divide-black">
-    <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
+  <div id="CalendarBodyDates"
+    class="container px-0 tw-divide-y tw-divide-black tw-bg-white md:tw-bg-transparent
+    md:tw-block tw-z-10 tw-fixed tw-right-0 tw-bottom-10 md:tw-static" :class="{ 'tw-hidden': !showInMobile, 'tw-animate-pulse': loading }">
+    <div class="row tw-divide-x tw-divide-black">
+      <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
+    </div>
+    <div class="row tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
+      <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
+    </div>
   </div>
-  <div class="row tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
-    <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
-  </div>
-</div>
+  <button class="btn btn-primary tw-inline-block md:tw-hidden tw-fixed tw-right-0 tw-bottom-0" @click="showInMobile = !showInMobile" type="submit">Button</button>
 </template>
 
 <script lang="ts">
@@ -69,11 +72,16 @@ export default defineComponent({
       return dateOfCalendar;
     });
 
+    const showInMobile = ref(false);
+    const toggle = () => { showInMobile.value = !showInMobile.value; };
+
     return {
       dayList,
       weekListOfCurrentMonth,
       getPosts,
       loading,
+      showInMobile,
+      toggle,
     };
   },
 });
