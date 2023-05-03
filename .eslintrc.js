@@ -23,6 +23,7 @@ module.exports = {
     "no-shadow": "off",
     'max-len': ['error', { 'code': 200 }],
     'linebreak-style': 0,
+    'vue/no-unused-components': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
   },
   overrides: [
     {
