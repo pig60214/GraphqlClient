@@ -5,6 +5,6 @@ export default interface Post {
   title: string
   from: string
   to: string
-  photos?: Photo[]
+  photos: Photo[]
   color: EnumColor
 }

@@ -45,12 +45,14 @@ import {
   ref,
   computed,
   Ref,
+  watch,
 } from 'vue';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import PostEditor from '@/components/DateDetail/PostEditor.vue';
 import useQueryPostApi from '@/composables/useQueryPostApi';
 import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 import SvgIcon from '@/components/SvgIcon.vue';
+import { useStore } from '@/store';
 
 export default defineComponent({
   components: { PostEditor, SvgIcon },
@@ -70,6 +72,8 @@ export default defineComponent({
     const dateOfCalendar = new DateOfCalendar();
     dateOfCalendar.date = new Date(props.dateString);
     const currentDate = ref(dateOfCalendar);
+    const store = useStore();
+    store.state.photosInCarousel = [];
 
     const variable: Ref<PostsQueryInput> = ref({
       from: props.dateString,
@@ -80,7 +84,14 @@ export default defineComponent({
 
     const currentPostIndex = ref(0);
     const currentPost = computed(() => (posts.value.length > 0) ? posts.value[currentPostIndex.value] : null);
-    const photos = computed(() => (currentPost.value) ? currentPost.value.photos : null);
+
+    watch(
+      () => currentPost.value,
+      () => {
+        store.state.photosInCarousel = currentPost.value ? currentPost.value.photos : [];
+      },
+      { deep: true },
+    );
 
     const isNewPost = ref(false);
 
@@ -98,7 +109,6 @@ export default defineComponent({
       currentPost,
       monthList,
       weekList,
-      photos,
       isNewPost,
       clickPost,
       clickAddPost,

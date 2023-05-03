@@ -34,29 +34,31 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   ref,
   watch,
 } from 'vue';
-import Photo from '@/interface/Photo';
+import { useStore } from '@/store';
 
 export default defineComponent({
   name: 'PhotoCarouselContent',
   props: {
     carouselId: String,
-    photos: Array as ()=> Photo[],
   },
-  setup(props) {
+  setup() {
     const currentPhotoIndex = ref(0);
+    const store = useStore();
+    const photos = computed(() => store.state.photosInCarousel);
 
     watch(
-      () => props.photos,
+      () => photos.value,
       () => {
         currentPhotoIndex.value = 0;
       },
     );
 
-    return { currentPhotoIndex };
+    return { photos, currentPhotoIndex };
   },
 });
 </script>

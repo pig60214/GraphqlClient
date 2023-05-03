@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, watch } from 'vue';
 import { useStore } from '@/store';
 import DateOfCalendar from '@/class/DateOfCalendar';
 import { useRoute, useRouter } from 'vue-router';
@@ -50,7 +50,15 @@ export default defineComponent({
     const initCurrentDate = () => {
       const route = useRoute();
       if (route.params.dateString === props.dateOfCalendar.dateString) {
-        store.state.currentDate = props.dateOfCalendar;
+        store.commit('setCurrentDate', props.dateOfCalendar);
+
+        watch(
+          () => props.dateOfCalendar,
+          () => {
+            store.commit('setCurrentDate', props.dateOfCalendar);
+          },
+          { deep: true },
+        );
       }
     };
 
@@ -61,7 +69,7 @@ export default defineComponent({
         router.push({ name: 'DateDetail', params: { dateString: store.state.currentDate.dateString } });
       }
       if (props.dateOfCalendar !== undefined && !store.state.currentDate.equals(props.dateOfCalendar)) {
-        store.state.currentDate = props.dateOfCalendar;
+        store.commit('setCurrentDate', props.dateOfCalendar);
         router.push({ name: 'Calendar', params: { dateString: store.state.currentDate.dateString } });
       }
     };

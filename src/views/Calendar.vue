@@ -3,7 +3,7 @@
     <div class="row tw-items-center tw-h-screen">
       <div class="col-xs-auto col-md-3 tw-p-4">
         <calendar-body-month/>
-        <PhotoCarousel :photos="photos" :carouselId="'calendarHeader'"/>
+        <PhotoCarousel :carouselId="'calendarHeader'"/>
       </div>
       <div class="col-xs-auto col-md-9 px-0">
         <div id="calendarBody" class="container">
@@ -15,9 +15,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent, computed, watch,
-} from 'vue';
+import { defineComponent, watch } from 'vue';
 import { useStore } from '@/store';
 import PhotoCarousel from '../components/PhotoCarousel/PhotoCarousel.vue';
 import CalendarBodyMonth from '../components/Calendar/CalendarBodyMonth.vue';
@@ -36,7 +34,6 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
-    const photos = computed(() => store.state.currentDate.photos);
 
     const setUpCalendar = () => {
       if (props.dateString !== '') {
@@ -53,7 +50,7 @@ export default defineComponent({
       },
     );
 
-    return { photos };
+    return { };
   },
 });
 </script>
