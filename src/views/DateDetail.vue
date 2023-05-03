@@ -24,7 +24,7 @@
             :class="[ index === currentPostIndex ? `bg-${post.color}` : '' ]"
             @click="clickPost(index)"
           >
-            <span :class="index === currentPostIndex ? 'text-bg-color' : `text-${post.color}`">▶</span>
+            <SvgIcon :svgName="'icon-bullet-point'" :className="`tw-w-4 tw-h-4 ${index === currentPostIndex ? 'text-bg-color' : `text-${post.color}`}`" />
             <span class="tw-ml-1 tw-cursor-text">{{ post.title }}</span>
           </li>
         </ul>
@@ -50,9 +50,10 @@ import DateOfCalendar from '@/class/DateOfCalendar';
 import PostEditor from '@/components/DateDetail/PostEditor.vue';
 import useQueryPostApi from '@/composables/useQueryPostApi';
 import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default defineComponent({
-  components: { PostEditor },
+  components: { PostEditor, SvgIcon },
   props: {
     dateString: {
       type: String,

@@ -24,4 +24,12 @@ module.exports = {
     'max-len': ['error', { 'code': 200 }],
     'linebreak-style': 0,
   },
+  overrides: [
+    {
+      "files": ["*Svgs.vue"],
+        "rules": {
+          "max-len": "off"
+        }
+    },
+  ],
 };

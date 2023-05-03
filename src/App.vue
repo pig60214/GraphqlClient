@@ -5,14 +5,17 @@
     <router-link :to="`/calendar/${dateToString(currentDate.date)}`">Calendar</router-link>
   </div> -->
   <router-view/>
+  <Svgs class="tw-hidden" />
 </template>
 
 <script>
 import dateToString from '@/helpers/dateFormateHelper';
 import { useStore } from '@/store';
 import { computed } from 'vue';
+import Svgs from '@/components/Svgs.vue';
 
 export default {
+  components: { Svgs },
   setup() {
     const store = useStore();
     const currentDate = computed(() => store.state.currentDate);
