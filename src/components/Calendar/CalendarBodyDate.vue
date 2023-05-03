@@ -46,38 +46,32 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
     const router = useRouter();
+    const route = useRoute();
+    const isChosedDate = computed(() => !props.dateOfCalendar.isDisable && route.params.dateString === props.dateOfCalendar.dateString);
 
-    const initCurrentDate = () => {
-      const route = useRoute();
-      if (route.params.dateString === props.dateOfCalendar.dateString) {
-        store.commit('setCurrentDate', props.dateOfCalendar);
-
-        watch(
-          () => props.dateOfCalendar,
-          () => {
+    const watchDataLoaded = () => {
+      watch(
+        () => props.dateOfCalendar,
+        () => {
+          if (isChosedDate.value) {
             store.commit('setCurrentDate', props.dateOfCalendar);
-          },
-          { deep: true },
-        );
-      }
+          }
+        },
+        { deep: true },
+      );
     };
-
-    initCurrentDate();
+    watchDataLoaded();
 
     const chooseDate = () => {
-      if (props.dateOfCalendar !== undefined) {
-        if (store.state.currentDate.equals(props.dateOfCalendar)) {
+      if (!props.dateOfCalendar.isDisable) {
+        if (isChosedDate.value) {
           router.push({ name: 'DateDetail', params: { dateString: store.state.currentDate.dateString } });
         } else {
           store.commit('setCurrentDate', props.dateOfCalendar);
+          router.push({ name: 'Calendar', params: { dateString: store.state.currentDate.dateString } });
         }
       }
     };
-
-    const isChosedDate = computed(() => {
-      const currentDate = store.state.currentDate.date?.getDate();
-      return !props.dateOfCalendar.isDisable && currentDate === props.dateOfCalendar.date?.getDate();
-    });
 
     const postsToDisplay = computed(() => {
       const { posts } = props.dateOfCalendar;
