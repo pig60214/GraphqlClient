@@ -65,12 +65,12 @@ export default defineComponent({
     initCurrentDate();
 
     const chooseDate = () => {
-      if (props.dateOfCalendar !== undefined && store.state.currentDate.equals(props.dateOfCalendar)) {
-        router.push({ name: 'DateDetail', params: { dateString: store.state.currentDate.dateString } });
-      }
-      if (props.dateOfCalendar !== undefined && !store.state.currentDate.equals(props.dateOfCalendar)) {
-        store.commit('setCurrentDate', props.dateOfCalendar);
-        router.push({ name: 'Calendar', params: { dateString: store.state.currentDate.dateString } });
+      if (props.dateOfCalendar !== undefined) {
+        if (store.state.currentDate.equals(props.dateOfCalendar)) {
+          router.push({ name: 'DateDetail', params: { dateString: store.state.currentDate.dateString } });
+        } else {
+          store.commit('setCurrentDate', props.dateOfCalendar);
+        }
       }
     };
 
