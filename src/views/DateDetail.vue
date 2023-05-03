@@ -73,7 +73,6 @@ export default defineComponent({
     dateOfCalendar.date = new Date(props.dateString);
     const currentDate = ref(dateOfCalendar);
     const store = useStore();
-    store.state.photosInCarousel = [];
 
     const variable: Ref<PostsQueryInput> = ref({
       from: props.dateString,

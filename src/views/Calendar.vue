@@ -17,6 +17,7 @@
 <script lang="ts">
 import { defineComponent, watch } from 'vue';
 import { useStore } from '@/store';
+import { useRoute } from 'vue-router';
 import PhotoCarousel from '../components/PhotoCarousel/PhotoCarousel.vue';
 import CalendarBodyMonth from '../components/Calendar/CalendarBodyMonth.vue';
 
@@ -34,6 +35,7 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
+    const route = useRoute();
 
     const setUpCalendar = () => {
       if (props.dateString !== '') {
@@ -47,6 +49,13 @@ export default defineComponent({
       () => props.dateString,
       () => {
         setUpCalendar();
+      },
+    );
+
+    watch(
+      () => route.name,
+      () => {
+        store.state.photosInCarousel = [];
       },
     );
 
