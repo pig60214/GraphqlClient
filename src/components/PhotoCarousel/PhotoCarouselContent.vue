@@ -1,9 +1,9 @@
 <template>
   <carousel :items-to-show="1" v-model="currentSlide" v-if="photos.length > 0" :autoplay="2000" >
     <slide v-for="photo, index in photos" :key="index">
-      <div class="tw-bg-white tw-px-2 tw-pt-2 tw-pb-12 tw-h-full">
-        <img :alt="photo.caption" :src="photo.path">
-        <h6>{{ photo.caption }}</h6>
+      <div class="tw-bg-white tw-px-2 tw-pt-2 tw-pb-12">
+        <img :alt="photo.caption" :src="photo.path" :style="`max-height: ${height*0.5}px`">
+        <h6 class="tw-mt-3">{{ photo.caption }}</h6>
       </div>
     </slide>
     <template #addons>
@@ -56,7 +56,13 @@ export default defineComponent({
       },
     );
 
-    return { photos, currentSlide };
+    const height = window.innerHeight;
+
+    return {
+      photos,
+      currentSlide,
+      height,
+    };
   },
 });
 </script>

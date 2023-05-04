@@ -1,6 +1,6 @@
 <template>
-  <div id="calendar" class="container" >
-    <div class="row tw-items-center tw-h-screen">
+  <div id="calendar" class="container">
+    <div class="row tw-items-center" :style="`height: ${height}px`">
       <div class="col-xs-auto col-md-3 tw-p-4">
         <calendar-body-month/>
         <PhotoCarousel/>
@@ -59,7 +59,9 @@ export default defineComponent({
       },
     );
 
-    return { };
+    const height = window.innerHeight;
+
+    return { height };
   },
 });
 </script>
