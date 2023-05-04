@@ -3,12 +3,18 @@
     <div class="carousel-inner">
       <div v-for="month, index in monthList" :key="index" class="carousel-item" :class="{ active : index == currentMonth.month }">
         <h1 class="mb-0 tw-flex tw-cursor-pointer" @click="goToCalender">
-          <div class="tw-w-1/5"></div>
-          <div class="tw-w-1/3">
+          <div class="md:tw-w-1/5"></div>
+          <div class="tw-w-full md:tw-w-1/3">
             <div class="tw-relative">
-              <span class="tw-leading-none my-animate-month" style="font-size: 16rem">{{ month }}<span class="tw-text-4xl">{{ currentMonth.year }}</span>
+              <span class="tw-leading-none my-animate-month">
+                <span class="tw-flex tw-flex-wrap tw-justify-center tw-space-x-4 md:tw-inline">
+                  <span class="tw-text-9xl md:tw-text-18xl">{{ month }}</span>
+                  <span class="tw-text-5xl md:tw-hidden tw-self-center">/</span>
+                  <span class="tw-text-9xl md:tw-hidden">{{ date }}</span>
+                </span>
+                <span class="tw-text-4xl tw-block tw--mt-8 md:tw-inline md:tw-mt-auto">{{ currentMonth.year }}</span>
               </span>
-              <div class="tw-transform tw-absolute" :class="eMonthList[index].place">{{eMonthList[index].value}}</div>
+              <div class="tw-hidden md:tw-block tw-transform tw-absolute" :class="eMonthList[index].place">{{eMonthList[index].value}}</div>
             </div>
             <!-- <span v-if="!showMonthSelection" @click="showMonthSelection = true">{{ month }}</span>
             <span v-else>
@@ -79,6 +85,8 @@ export default defineComponent({
     const goToCalender = () => {
       router.push({ name: 'Calendar', params: { dateString: route.params.dateString } });
     };
+    // @ts-ignore
+    const date = computed(() => route.params.dateString.split('-')[2]);
 
     return {
       monthList,
@@ -88,6 +96,7 @@ export default defineComponent({
       showMonthSelection,
       goToAddMonth,
       goToCalender,
+      date,
     };
   },
 });

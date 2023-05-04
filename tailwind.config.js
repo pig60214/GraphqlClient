@@ -10,6 +10,9 @@ module.exports = {
         '105': '105deg',   // used by Jun., Sep.
         '-105': '-105deg', // used by Aug.
       },
+      fontSize: {
+        '18xl': '16rem',
+      },
     },
   },
   plugins: [],
