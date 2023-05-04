@@ -26,7 +26,7 @@
         </h1>
       </div>
     </div>
-    <div>
+    <div class="tw-hidden md:tw-block">
       <button class="tw-absolute tw-left-0 tw-top-1/2" type="button" data-bs-target="#calendarBodyMonth" data-bs-slide="prev" @click="goToAddMonth(-1)">
         <span class="carousel-control-prev-icon tw-h-5 tw-w-5" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -40,19 +40,17 @@
 </template>
 
 <script lang="ts">
-import { useStore } from '@/store';
 import {
   computed,
   defineComponent,
   ref,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import dateToString from '@/helpers/dateFormateHelper';
+import useMonthPanel from '@/composables/useMonthPanel';
 
 export default defineComponent({
   name: 'CalendarBodyMonth',
   setup() {
-    const store = useStore();
     // const monthList = ['一 月', '二 月', '三 月', '四 月', '五 月', '六 月', '七 月', '八 月', '九 月', '十 月', '十一月', '十二月'];
     // const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const eMonthList = [
@@ -71,22 +69,19 @@ export default defineComponent({
     ];
     // const monthList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
     const monthList = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-    const currentMonth = computed(() => store.state.currentMonth);
+
     const showYearSelection = ref(false);
     const showMonthSelection = ref(false);
 
     const router = useRouter();
-    const goToAddMonth = (month: number) => {
-      const addMonth = currentMonth.value.addMonth(month);
-      router.push({ name: 'Calendar', params: { dateString: dateToString(addMonth) } });
-    };
-
     const route = useRoute();
     const goToCalender = () => {
       router.push({ name: 'Calendar', params: { dateString: route.params.dateString } });
     };
     // @ts-ignore
-    const date = computed(() => route.params.dateString.split('-')[2]);
+    const date = computed(() => Number(route.params.dateString.split('-')[2]));
+
+    const { currentMonth, goToAddMonth } = useMonthPanel();
 
     return {
       monthList,
@@ -143,3 +138,7 @@ $monthes: apr, may, july, sep, oct, nov;
   }
 }
 </style>
+
+function useMonthPanel() {
+  throw new Error('Function not implemented.');
+}

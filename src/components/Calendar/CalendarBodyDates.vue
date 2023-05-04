@@ -8,8 +8,12 @@
     <div class="row tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
       <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
     </div>
+    <div class="tw-block md:tw-hidden tw-flex tw-justify-end">
+      <button class="btn btn-primary" @click="goToAddMonth(-1)">Prev</button>
+      <button class="btn btn-primary" @click="goToAddMonth(1)">Next</button>
+    </div>
   </div>
-  <button class="btn btn-primary tw-inline-block md:tw-hidden tw-fixed tw-right-0 tw-bottom-0" @click="showInMobile = !showInMobile" type="submit">Button</button>
+  <button class="btn btn-primary tw-inline-block md:tw-hidden tw-fixed tw-right-0 tw-bottom-0" @click="showInMobile = !showInMobile">Button</button>
 </template>
 
 <script lang="ts">
@@ -25,6 +29,7 @@ import DateOfCalendar from '@/class/DateOfCalendar';
 import { useStore } from '@/store';
 import useQueryPostApi from '@/composables/useQueryPostApi';
 import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
+import useMonthPanel from '@/composables/useMonthPanel';
 import CalendarBodyDate from './CalendarBodyDate.vue';
 
 export default defineComponent({
@@ -75,6 +80,8 @@ export default defineComponent({
     const showInMobile = ref(false);
     const toggle = () => { showInMobile.value = !showInMobile.value; };
 
+    const { goToAddMonth } = useMonthPanel();
+
     return {
       dayList,
       weekListOfCurrentMonth,
@@ -82,6 +89,7 @@ export default defineComponent({
       loading,
       showInMobile,
       toggle,
+      goToAddMonth,
     };
   },
 });
