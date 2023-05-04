@@ -3,7 +3,7 @@
     <div class="row tw-items-center tw-h-screen">
       <div class="col-xs-auto col-md-3 tw-p-4">
         <calendar-body-month/>
-        <PhotoCarousel :carouselId="'calendarHeader'"/>
+        <PhotoCarousel/>
       </div>
       <div class="col-xs-auto col-md-9 px-0">
         <div id="calendarBody" class="container">
