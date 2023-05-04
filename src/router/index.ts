@@ -26,7 +26,6 @@ const routes: Array<RouteRecordRaw> = [
     component: Calendar,
     props: route => ({
       dateString: route.params.dateString,
-      defaultValue: todayStr,
     }),
     children: [
       {
@@ -49,6 +48,13 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to) => {
+  if (!to.params.dateString) {
+    router.push({ name: 'Calendar', params: { dateString: todayStr } });
+  }
+  return true;
 });
 
 export default router;
