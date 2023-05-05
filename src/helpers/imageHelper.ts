@@ -2,6 +2,8 @@ import FileCaptionPair from '@/interface/FileCaptionPair';
 import Base64FileCaptionPair from '@/interface/Base64FileCaptionPair';
 
 const compressImage = async (file: File) => {
+  const targetSize = 1000000;
+  const compressRatio = targetSize / file.size;
   const imageBitmap = await createImageBitmap(file);
 
   const canvas = document.createElement('canvas');
@@ -11,7 +13,7 @@ const compressImage = async (file: File) => {
   // @ts-ignore
   ctx.drawImage(imageBitmap, 0, 0, canvas.width, canvas.height); // 把圖片畫在畫布上(0,0)作標到(canvas.width,canvas.height)
 
-  const newImg = canvas.toDataURL('image/jpeg', 0.8);
+  const newImg = canvas.toDataURL('image/jpeg', compressRatio);
   return newImg;
 };
 
