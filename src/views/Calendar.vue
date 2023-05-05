@@ -4,7 +4,7 @@
       <div class="md:tw-w-1/4">
         <calendar-body-month/>
         <div class="md:tw-block" :class="{ 'tw-hidden': !showPhotoInMobile }">
-          <PhotoCarousel/>
+          <PhotoCarousel :key="rebuild"/>
         </div>
       </div>
       <div class="tw-w-full md:tw-w-3/4 tw-p-4 md:tw-block" :class="{ 'tw-hidden': showPhotoInMobile }">
@@ -20,7 +20,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch } from 'vue';
+import {
+  computed,
+  defineComponent,
+  ref,
+  watch,
+} from 'vue';
 import { useStore } from '@/store';
 import { useRoute } from 'vue-router';
 import useTogglePhoto from '@/composables/useTogglePhoto';
@@ -77,11 +82,23 @@ export default defineComponent({
       return showPhotoInMobile.value ? 'icon-list' : 'icon-photo';
     });
 
+    const rebuild = ref(true);
+    const photos = computed(() => store.state.photosInCarousel);
+    watch(
+      () => photos.value,
+      (oldVal, newVal) => {
+        if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
+          rebuild.value = !rebuild.value;
+        }
+      },
+    );
+
     return {
       height,
       showPhotoInMobile,
       toggle,
       buttonIcon,
+      rebuild,
     };
   },
 });

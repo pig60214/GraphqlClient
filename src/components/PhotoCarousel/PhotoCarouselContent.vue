@@ -25,7 +25,6 @@ import {
   computed,
   defineComponent,
   ref,
-  watch,
 } from 'vue';
 import { useStore } from '@/store';
 import 'vue3-carousel/dist/carousel.css';
@@ -46,16 +45,6 @@ export default defineComponent({
     const store = useStore();
     const photos = computed(() => store.state.photosInCarousel);
     const currentSlide = ref(0);
-
-    watch(
-      () => photos.value,
-      (oldVal, newVal) => {
-        if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
-          currentSlide.value = 0;
-        }
-      },
-    );
-
     const height = window.innerHeight;
 
     return {
