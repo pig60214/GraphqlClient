@@ -4,10 +4,11 @@
     @click="chooseDate"
     :class="{ 'bg-font-color': isChosedDate }"
   >
-    <span class="tw-leading-tight tw-my-auto md:tw-my-0" :class="{ 'text-white': isChosedDate, 'md:tw-bg-transparent tw-bg-yellow-green tw-rounded-full tw-w-8 tw-mx-auto': hasPosts }" >
+    <span class="tw-leading-tight md:tw-leading-none tw-my-auto md:tw-my-0 md:t-h-1/4"
+      :class="{ 'text-white': isChosedDate, 'md:tw-bg-transparent tw-bg-yellow-green tw-rounded-full tw-w-8 tw-mx-auto': hasPosts }" >
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
-    <div class="tw-hidden md:tw-flex tw-flex-col tw-space-y-1">
+    <div class="tw-hidden md:tw-flex tw-flex-col tw-space-y-1.5">
       <span
         class="my-badge my-animate-show-up"
         v-for="post, index in postsToDisplay"
