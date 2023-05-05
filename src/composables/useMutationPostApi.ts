@@ -1,6 +1,6 @@
 import { Ref } from 'vue';
 import FileCaptionPair from '@/interface/FileCaptionPair';
-import fileToBase64 from '@/helpers/toBase64FileHelper';
+import getBase64 from '@/helpers/imageHelper';
 import { useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import Post from '@/interface/Post';
@@ -16,7 +16,7 @@ export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[
 
   const addPost = async () => {
     const pairs = pairsCollection.value.flat();
-    const base64FileCaptionPairs = await fileToBase64(pairs);
+    const base64FileCaptionPairs = await getBase64(pairs);
     addPostApi({
       addPostInput: {
         title: editedPost.value.title,
@@ -38,7 +38,7 @@ export default function useMutationPostApi(pairsCollection: Ref<FileCaptionPair[
 
   const updatePost = async () => {
     const pairs = pairsCollection.value.flat();
-    const base64FileCaptionPairs = await fileToBase64(pairs);
+    const base64FileCaptionPairs = await getBase64(pairs);
     updatePostApi({
       updatePostInput: {
         id: editedPost.value.id,
