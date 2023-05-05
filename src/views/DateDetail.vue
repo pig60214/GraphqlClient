@@ -1,4 +1,5 @@
 <template>
+<div class="tw-animate-show">
   <div id="dateDetail" class="tw-divide-y tw-divide-black" :class="{ 'tw-animate-pulse': loading }">
     <h2 class="my-1 tw-text-3xl tw-hidden md:tw-block"> {{ weekList[currentDate.date.getDay()] }} </h2>
     <div class="tw-flex md:tw-divide-x md:tw-divide-black">
@@ -15,13 +16,33 @@
       </div>
       <div id="posts" class="tw-w-full md:tw-w-2/3">
         <ul class="tw-divide-y tw-divide-gray-400 tw-h-full">
-          <li v-if="!loading && posts.length == 0" class="tw-h-full">
+          <template v-if="loading">
+            <li>
+              <div class="tw-flex tw-items-center tw-h-12">
+                <SvgIcon :svgName="'icon-bullet-point'" :className="'tw-w-4 tw-h-4 text-font-color'" />
+                <div class="tw-ml-1 tw-cursor-text tw-bg-gray-500 tw-rounded tw-h-7 tw-w-1/2">&nbsp;</div>
+              </div>
+            </li>
+            <li>
+              <div class="tw-flex tw-items-center tw-h-12">
+                <SvgIcon :svgName="'icon-bullet-point'" :className="'tw-w-4 tw-h-4 text-font-color'" />
+                <div class="tw-ml-1 tw-cursor-text tw-bg-gray-500 tw-rounded tw-h-7 tw-w-1/3">&nbsp;</div>
+              </div>
+            </li>
+            <li>
+              <div class="tw-flex tw-items-center tw-h-12">
+                <SvgIcon :svgName="'icon-bullet-point'" :className="'tw-w-4 tw-h-4 text-font-color'" />
+                <div class="tw-ml-1 tw-cursor-text tw-bg-gray-500 tw-rounded tw-h-7 tw-w-2/3">&nbsp;</div>
+              </div>
+            </li>
+          </template>
+          <li v-if="!loading && posts.length == 0" class="tw-h-full tw-animate-show">
             <button type="button" class="btn-outline-dark tw-w-12 tw-h-12 md:tw-h-full" data-bs-toggle="modal" data-bs-target="#postEditor" @click="clickAddPost">
               <SvgIcon :svgName="'icon-add'" :className="'tw-w-5 tw-h-5'" />
             </button>
           </li>
           <li
-            class="tw-truncate text-start ps-2 pe-0 py-1 tw-cursor-pointer tw-flex tw-items-center tw-justify-between"
+            class="tw-truncate text-start ps-2 pe-0 py-1 tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-animate-show"
             v-for="post, index in posts"
             :key="index"
             :class="[ index === currentPostIndex ? `bg-${post.color}` : '' ]"
@@ -48,6 +69,7 @@
       </button>
     </div>
   </div>
+</div>
   <PostEditor :isNewPost="isNewPost" :dateString="dateString" :post="currentPost" :refetch="refetch" />
 </template>
 

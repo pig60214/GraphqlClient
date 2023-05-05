@@ -1,4 +1,5 @@
 <template>
+<div class="tw-animate-show">
   <div id="CalendarBodyDates" class="tw-w-full tw-divide-y tw-divide-black" :class="{ 'tw-animate-pulse': loading }">
     <div class="tw-flex tw-divide-x tw-divide-black">
       <div class="px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
@@ -15,6 +16,7 @@
       </button>
     </div>
   </div>
+</div>
 </template>
 
 <script lang="ts">

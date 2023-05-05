@@ -26,7 +26,7 @@ module.exports = {
         }
        },
       animation: {
-        'show': 'show 2s linear forwards',
+        'show': 'show 1s linear forwards',
       }
     },
   },
