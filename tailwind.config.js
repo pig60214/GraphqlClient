@@ -15,6 +15,18 @@ module.exports = {
       },
       backgroundColor: {
         'yellow-green': '#6bb949',
+      },
+      boxShadow: {
+        'calendar': '0 0 10px rgba(0, 0, 0, 0.3)',
+      },
+      keyframes: {
+        show: {
+          'from': { opacity: 0 },
+          'to': { opacity: 1 },
+        }
+       },
+      animation: {
+        'show': 'show 2s linear forwards',
       }
     },
   },

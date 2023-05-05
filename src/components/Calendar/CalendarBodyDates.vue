@@ -1,22 +1,25 @@
 <template>
   <div id="CalendarBodyDates"
-    class="px-0 tw-divide-y tw-divide-black
-    tw-bg-white tw-shadow-xl tw-w-full md:tw-bg-transparent md:tw-shadow-none md:tw-block
+    class="tw-w-full tw-p-2 md:tw-block md:tw-animate-show
     tw-z-10 tw-fixed tw-right-0 tw-bottom-16 md:tw-static" :class="{ 'tw-hidden': !showInMobile, 'tw-animate-pulse': loading }">
-    <div class="row tw-divide-x tw-divide-black">
-      <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
+    <div class="tw-divide-y tw-divide-black
+                tw-bg-white tw-shadow-calendar tw-rounded-md md:tw-bg-transparent md:tw-shadow-none">
+      <div class="tw-flex tw-divide-x tw-divide-black">
+        <div class="px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
+      </div>
+      <div class="tw-flex tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
+        <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
+      </div>
+      <div class="tw-block md:tw-hidden tw-flex tw-justify-end btn-group tw-bg-gray-500 tw-rounded-b-md">
+        <button class="btn btn btn-secondary btn-sm" @click="goToAddMonth(-1)">
+          <SvgIcon :svgName="'icon-arrow-left'" :className="'tw-w-5 tw-h-5'" />
+        </button>
+        <button class="btn btn btn-secondary btn-sm" @click="goToAddMonth(1)">
+          <SvgIcon :svgName="'icon-arrow-right'" :className="'tw-w-5 tw-h-5'" />
+        </button>
+      </div>
     </div>
-    <div class="row tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
-      <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
-    </div>
-    <div class="tw-block md:tw-hidden tw-flex tw-justify-end btn-group">
-      <button class="btn btn btn-secondary btn-sm" @click="goToAddMonth(-1)">
-        <SvgIcon :svgName="'icon-arrow-left'" :className="'tw-w-5 tw-h-5'" />
-      </button>
-      <button class="btn btn btn-secondary btn-sm" @click="goToAddMonth(1)">
-        <SvgIcon :svgName="'icon-arrow-right'" :className="'tw-w-5 tw-h-5'" />
-      </button>
-    </div>
+    <div class="tw-block md:tw-hidden triangle"></div>
   </div>
   <button class="tw-inline-block md:tw-hidden
     btn btn-dark tw-rounded-full tw-w-12 tw-h-12
@@ -109,4 +112,24 @@ export default defineComponent({
 .w-1-out-of-7 {
   width: 14.2857142857%;
 }
+
+.triangle::after{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-left: -1.4rem;
+  left: 50%;
+  bottom: -15px;
+  box-sizing: border-box;
+
+  border: 1rem solid black;
+  border-color: transparent transparent #6c757d #6c757d;
+
+  transform-origin: 0 0;
+  transform: rotate(-45deg);
+
+  box-shadow: -5px 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
 </style>

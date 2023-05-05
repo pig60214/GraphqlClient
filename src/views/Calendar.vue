@@ -1,11 +1,11 @@
 <template>
   <div id="calendar" class="container">
     <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center" :style="`height: ${height}px`">
-      <div class="md:tw-w-1/4 tw-p-4">
+      <div class="md:tw-w-1/4">
         <calendar-body-month/>
         <PhotoCarousel/>
       </div>
-      <div class="md:tw-w-3/4 px-0">
+      <div class="md:tw-w-3/4 tw-px-4">
         <router-view/>
       </div>
     </div>

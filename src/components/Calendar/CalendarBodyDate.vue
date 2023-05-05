@@ -1,10 +1,10 @@
 <template>
   <div
-    class="col px-1 w-1-out-of-7 pb-1 tw-flex tw-flex-col tw-h-10 md:tw-h-28"
+    class="w-1-out-of-7 tw-flex tw-flex-col tw-h-10 md:tw-h-28 tw-px-0 md:tw-px-1"
     @click="chooseDate"
     :class="{ 'bg-font-color': isChosedDate }"
   >
-    <span class="tw-leading-tight" :class="{ 'text-white': isChosedDate, 'md:tw-bg-transparent tw-bg-yellow-green tw-rounded-full tw-w-8 tw-mx-auto': hasPosts }" >
+    <span class="tw-leading-tight tw-my-auto md:tw-my-0" :class="{ 'text-white': isChosedDate, 'md:tw-bg-transparent tw-bg-yellow-green tw-rounded-full tw-w-8 tw-mx-auto': hasPosts }" >
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
     <div class="tw-hidden md:tw-flex tw-flex-col tw-space-y-1">
