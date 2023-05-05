@@ -130,13 +130,26 @@ export default defineComponent({
     const isNewPost = ref(false);
 
     const clickPost = (index: number) => {
-      currentPostIndex.value = index;
-      isNewPost.value = false;
+      if (index >= 0 && index < posts.value.length) {
+        currentPostIndex.value = index;
+        isNewPost.value = false;
+      }
     };
 
     const clickAddPost = () => { isNewPost.value = true; };
 
     const { showPhoto } = useTogglePhoto();
+
+    document.onkeydown = (e) => {
+      e = e || window.event;
+      const arrowUp = 38;
+      const arrowDown = 40;
+      if (e.keyCode === arrowUp) {
+        clickPost(currentPostIndex.value - 1);
+      } else if (e.keyCode === arrowDown) {
+        clickPost(currentPostIndex.value + 1);
+      }
+    };
 
     return {
       currentDate,
