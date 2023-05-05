@@ -15,6 +15,7 @@ module.exports = {
       },
       backgroundColor: {
         'yellow-green': '#6bb949',
+        'bg': '#e2e0df'
       },
       boxShadow: {
         'around': '0 0 8px rgba(0, 0, 0, 0.3)',

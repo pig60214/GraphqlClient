@@ -59,3 +59,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="postcss">
+.carousel__prev, .carousel__next {
+  @apply tw-rounded-full tw-bg-opacity-60 tw-bg-bg;
+}
+</style>

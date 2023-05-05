@@ -42,7 +42,7 @@
             </button>
           </li>
           <li
-            class="tw-truncate text-start ps-2 pe-0 py-1 tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-animate-show"
+            class="tw-truncate text-start tw-py-1 tw-px-2 tw-cursor-pointer tw-flex tw-items-center tw-justify-between tw-animate-show"
             v-for="post, index in posts"
             :key="index"
             :class="[ index === currentPostIndex ? `bg-${post.color}` : '' ]"
@@ -56,7 +56,7 @@
               <SvgIcon :svgName="'icon-bullet-point'" :className="`tw-w-4 tw-h-4 ${index === currentPostIndex ? 'text-bg-color' : `text-${post.color}`}`" />
               <span class="tw-ml-1 tw-cursor-text">{{ post.title }}</span>
             </div>
-            <button v-if="post.photos.length > 0" class="md:tw-hidden btn btn-sm btn-outline-dark tw-rounded-full tw-w-8 tw-h-8" @click="showPhoto">
+            <button v-if="post.photos.length > 0" class="md:tw-hidden btn btn-sm btn-outline-secondary tw-rounded-full tw-w-8 tw-h-8" @click="showPhoto">
               <SvgIcon :svgName="'icon-photo'" :className="'tw-w-3 tw-h-3'" />
             </button>
           </li>

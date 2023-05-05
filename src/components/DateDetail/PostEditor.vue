@@ -40,15 +40,21 @@
         </div>
         <PostEditorAddPhotoArea v-for="_, index in pairsCollection" :key="index" :photoAreaId="index" :savePhotosToCollection="savePhotosToCollection" />
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">Add Photo</button>
-          <button type="button" class="btn btn-sm btn-secondary"  @click="saveAction">Save</button>
-          <button type="button" id="closeBtn" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="button" class="btn btn-sm btn-secondary" @click="addPhotoArea">
+            <SvgIcon :svgName="'icon-add-photo'" :className="'tw-w-6 tw-h-6 tw-stroke-current tw-text-white'"/>
+          </button>
+          <button type="button" class="btn btn-sm btn-secondary"  @click="saveAction">
+            <SvgIcon :svgName="'icon-upload'" :className="'tw-w-6 tw-h-6'"/>
+          </button>
+          <button type="button" id="closeBtn" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+            <SvgIcon :svgName="'icon-close'" :className="'tw-w-6 tw-h-6'"/>
+          </button>
         </div>
       </div>
     </div>
   </div>
   <div
-    class="tw-w-screen tw-h-screen tw-overflow-hidden tw-absolute tw-top-0 tw-left-0 bg-bg-color tw-opacity-95"
+    class="tw-w-screen tw-h-full tw-overflow-hidden tw-absolute tw-top-0 tw-left-0 bg-bg-color tw-opacity-95"
     style="z-index: 2147483647"
     :class="{'tw-hidden': !masked}"
   >
