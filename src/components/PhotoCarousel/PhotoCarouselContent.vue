@@ -1,5 +1,5 @@
 <template>
-<div :style="`width: ${width}px`" class="tw-px-2">
+<div :style="`max-width: ${width}px`" class="tw-px-2">
   <Carousel :items-to-show="1" v-model="currentSlide" v-if="photos.length > 0" :autoplay="2000">
     <Slide v-for="photo, index in photos" :key="index">
       <div class="tw-bg-white tw-px-2 tw-pt-2 tw-pb-12">
