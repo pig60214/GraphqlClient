@@ -14,25 +14,37 @@
         </div>
       </div>
       <div id="posts" class="tw-w-full md:tw-w-2/3">
-        <ul class="tw-divide-y tw-divide-gray-400">
+        <ul class="tw-divide-y tw-divide-gray-400 tw-h-full">
+          <li v-if="!loading && posts.length == 0" class="tw-h-full">
+            <button type="button" class="btn-outline-dark tw-w-12 tw-h-12 md:tw-h-full" data-bs-toggle="modal" data-bs-target="#postEditor" @click="clickAddPost">
+              <SvgIcon :svgName="'icon-add'" :className="'tw-w-5 tw-h-5'" />
+            </button>
+          </li>
           <li
-            class="tw-truncate text-start ps-2 pe-0 py-1 tw-cursor-pointer"
-            :data-bs-target="index === currentPostIndex ? '#postEditor' : ''"
-            :data-bs-toggle="index === currentPostIndex ? 'modal' : ''"
+            class="tw-truncate text-start ps-2 pe-0 py-1 tw-cursor-pointer tw-flex tw-items-center tw-justify-between"
             v-for="post, index in posts"
             :key="index"
             :class="[ index === currentPostIndex ? `bg-${post.color}` : '' ]"
             @click="clickPost(index)"
           >
-            <SvgIcon :svgName="'icon-bullet-point'" :className="`tw-w-4 tw-h-4 ${index === currentPostIndex ? 'text-bg-color' : `text-${post.color}`}`" />
-            <span class="tw-ml-1 tw-cursor-text">{{ post.title }}</span>
+            <div
+              class="tw-flex-grow"
+              :data-bs-target="index === currentPostIndex ? '#postEditor' : ''"
+              :data-bs-toggle="index === currentPostIndex ? 'modal' : ''"
+            >
+              <SvgIcon :svgName="'icon-bullet-point'" :className="`tw-w-4 tw-h-4 ${index === currentPostIndex ? 'text-bg-color' : `text-${post.color}`}`" />
+              <span class="tw-ml-1 tw-cursor-text">{{ post.title }}</span>
+            </div>
+            <button v-if="post.photos.length > 0" class="md:tw-hidden btn btn-sm btn-outline-dark tw-rounded-full tw-w-8 tw-h-8" @click="showPhoto">
+              <SvgIcon :svgName="'icon-photo'" :className="'tw-w-3 tw-h-3'" />
+            </button>
           </li>
         </ul>
       </div>
     </div>
-    <div class="d-grid d-flex justify-content-center">
-      <button type="button" class=" btn-sm btn-outline-dark tw-text-2xl" data-bs-toggle="modal" data-bs-target="#postEditor" @click="clickAddPost">
-        ﹢
+    <div class="d-grid d-flex justify-content-end">
+      <button v-if="posts.length > 0" type="button" class="btn-outline-dark tw-w-8" data-bs-toggle="modal" data-bs-target="#postEditor" @click="clickAddPost">
+        <SvgIcon :svgName="'icon-add'" :className="'tw-w-3 tw-h-3'" />
       </button>
     </div>
   </div>
@@ -53,6 +65,7 @@ import useQueryPostApi from '@/composables/useQueryPostApi';
 import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 import SvgIcon from '@/components/SvgIcon.vue';
 import { useStore } from '@/store';
+import useTogglePhoto from '@/composables/useTogglePhoto';
 
 export default defineComponent({
   components: { PostEditor, SvgIcon },
@@ -101,6 +114,8 @@ export default defineComponent({
 
     const clickAddPost = () => { isNewPost.value = true; };
 
+    const { showPhoto } = useTogglePhoto();
+
     return {
       currentDate,
       posts,
@@ -113,6 +128,7 @@ export default defineComponent({
       clickAddPost,
       refetch,
       loading,
+      showPhoto,
     };
   },
 });

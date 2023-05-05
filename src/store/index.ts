@@ -8,6 +8,7 @@ export interface State {
   currentMonth: MonthOfCalendar
   currentDate: DateOfCalendar
   photosInCarousel: Photo[]
+  showPhotoInMobile: boolean
 }
 
 export const key: InjectionKey<Store<State>> = Symbol('Copy From Vuex Doc');
@@ -17,6 +18,7 @@ export const store = createStore<State>({
     currentMonth: new MonthOfCalendar((new Date()).getFullYear(), (new Date()).getMonth()),
     currentDate: new DateOfCalendar((new Date())),
     photosInCarousel: [],
+    showPhotoInMobile: false,
   },
   mutations: {
     setCurrentMonth(state, dateString: string) {

@@ -57,7 +57,7 @@ import { useStore } from '@/store';
 export default defineComponent({
   name: 'CalendarBodyMonth',
   setup() {
-    const weekList = ['Sunday // 星期日', 'Monday // 星期一', 'Tuesday // 星期二', 'Wednesday // 星期三', 'Thursday // 星期四', 'Friday // 星期五', 'Saturday // 星期六'];
+    const weekList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     // const monthList = ['一 月', '二 月', '三 月', '四 月', '五 月', '六 月', '七 月', '八 月', '九 月', '十 月', '十一月', '十二月'];
     // const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const eMonthList = [

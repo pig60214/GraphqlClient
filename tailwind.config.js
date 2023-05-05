@@ -17,7 +17,7 @@ module.exports = {
         'yellow-green': '#6bb949',
       },
       boxShadow: {
-        'calendar': '0 0 10px rgba(0, 0, 0, 0.3)',
+        'around': '0 0 8px rgba(0, 0, 0, 0.3)',
       },
       keyframes: {
         show: {
