@@ -1,8 +1,8 @@
 <template>
   <div id="dateDetail" class="tw-divide-y tw-divide-black" :class="{ 'tw-animate-pulse': loading }">
-    <h2 class="my-1 tw-text-3xl"> {{ weekList[currentDate.date.getDay()] }} </h2>
-    <div class="tw-flex tw-divide-x tw-divide-black">
-      <div id="date" class="col-4 align-self-center">
+    <h2 class="my-1 tw-text-3xl tw-hidden md:tw-block"> {{ weekList[currentDate.date.getDay()] }} </h2>
+    <div class="tw-flex md:tw-divide-x md:tw-divide-black">
+      <div id="date" class="md:tw-w-1/3 align-self-center tw-hidden md:tw-block">
         <div class="row">
           <div class="col-6 px-1 text-end">
             <p class="m-0 tw-text-7xl"> {{ currentDate.date.getDate() }} </p>
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <div id="posts" class="col-8">
+      <div id="posts" class="tw-w-full md:tw-w-2/3">
         <ul class="tw-divide-y tw-divide-gray-400">
           <li
             class="tw-truncate text-start ps-2 pe-0 py-1 tw-cursor-pointer"

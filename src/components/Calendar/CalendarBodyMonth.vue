@@ -12,7 +12,12 @@
                   <span class="tw-text-5xl md:tw-hidden tw-self-center">/</span>
                   <span class="tw-text-9xl md:tw-hidden">{{ date }}</span>
                 </span>
-                <span class="tw-text-4xl tw-block tw--mt-8 md:tw-inline md:tw-mt-auto">{{ currentMonth.year }}</span>
+                <span class="tw-text-4xl tw-block tw--mt-8 md:tw-inline md:tw-mt-auto">
+                  {{ currentMonth.year }}
+                  <span class="tw-inline md:tw-hidden">
+                    • {{ day }}
+                  </span>
+                </span>
               </span>
               <div class="tw-hidden md:tw-block tw-transform tw-absolute" :class="eMonthList[index].place">{{eMonthList[index].value}}</div>
             </div>
@@ -47,10 +52,12 @@ import {
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useMonthPanel from '@/composables/useMonthPanel';
+import { useStore } from '@/store';
 
 export default defineComponent({
   name: 'CalendarBodyMonth',
   setup() {
+    const weekList = ['Sunday // 星期日', 'Monday // 星期一', 'Tuesday // 星期二', 'Wednesday // 星期三', 'Thursday // 星期四', 'Friday // 星期五', 'Saturday // 星期六'];
     // const monthList = ['一 月', '二 月', '三 月', '四 月', '五 月', '六 月', '七 月', '八 月', '九 月', '十 月', '十一月', '十二月'];
     // const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const eMonthList = [
@@ -80,6 +87,11 @@ export default defineComponent({
     };
     // @ts-ignore
     const date = computed(() => Number(route.params.dateString.split('-')[2]));
+    const store = useStore();
+    const day = computed(() => {
+      const d = store.state.currentDate.date?.getDay();
+      return d ? weekList[d] : '';
+    });
 
     const { currentMonth, goToAddMonth } = useMonthPanel();
 
@@ -92,6 +104,7 @@ export default defineComponent({
       goToAddMonth,
       goToCalender,
       date,
+      day,
     };
   },
 });

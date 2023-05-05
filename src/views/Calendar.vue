@@ -5,7 +5,7 @@
         <calendar-body-month/>
         <PhotoCarousel/>
       </div>
-      <div class="md:tw-w-3/4 tw-px-4">
+      <div class="tw-w-full md:tw-w-3/4 tw-px-4">
         <router-view/>
       </div>
     </div>
