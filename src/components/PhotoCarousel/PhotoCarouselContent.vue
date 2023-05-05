@@ -50,23 +50,6 @@ export default defineComponent({
     const height = window.innerHeight;
     const width = window.innerWidth;
 
-    const goSlide = (index: number) => {
-      if (index >= 0 && index < photos.value.length) {
-        currentSlide.value = index;
-      }
-    };
-
-    document.onkeydown = (e) => {
-      e = e || window.event;
-      const arrowLeft = 37;
-      const arrowRight = 39;
-      if (e.keyCode === arrowLeft) {
-        goSlide(currentSlide.value - 1);
-      } else if (e.keyCode === arrowRight) {
-        goSlide(currentSlide.value + 1);
-      }
-    };
-
     return {
       photos,
       currentSlide,
