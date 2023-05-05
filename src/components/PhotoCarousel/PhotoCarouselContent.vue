@@ -1,16 +1,17 @@
 <template>
-  <carousel :items-to-show="1" v-model="currentSlide" v-if="photos.length > 0" :autoplay="2000" >
-    <slide v-for="photo, index in photos" :key="index">
+<div :style="`width: ${width}px`" class="tw-px-2">
+  <Carousel :items-to-show="1" v-model="currentSlide" v-if="photos.length > 0" :autoplay="2000">
+    <Slide v-for="photo, index in photos" :key="index">
       <div class="tw-bg-white tw-px-2 tw-pt-2 tw-pb-12">
         <img :alt="photo.caption" :src="photo.path" :style="`max-height: ${height*0.5}px`">
         <h6 class="tw-mt-3">{{ photo.caption }}</h6>
       </div>
-    </slide>
+    </Slide>
     <template #addons>
-      <navigation />
+      <Navigation />
     </template>
-  </carousel>
-  <div class="tw-flex tw-space-x-1">
+  </Carousel>
+  <div class="tw-flex tw-space-x-0.5">
     <div class="tw-h-2 tw-flex-grow"
       v-for="photo, index in photos"
       :key="index" :class="index === currentSlide ? 'tw-bg-black' : 'tw-bg-gray-400'"
@@ -18,6 +19,7 @@
     >
     </div>
   </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -46,11 +48,13 @@ export default defineComponent({
     const photos = computed(() => store.state.photosInCarousel);
     const currentSlide = ref(0);
     const height = window.innerHeight;
+    const width = window.innerWidth;
 
     return {
       photos,
       currentSlide,
       height,
+      width,
     };
   },
 });
