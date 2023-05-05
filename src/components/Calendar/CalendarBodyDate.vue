@@ -4,7 +4,7 @@
     @click="chooseDate"
     :class="{ 'bg-font-color': isChosedDate }"
   >
-    <span class="tw-leading-tight" :class="{ 'text-white': isChosedDate, 'tw-bg-black tw-rounded-full md:tw-bg-transparent': hasPosts }" >
+    <span class="tw-leading-tight" :class="{ 'text-white': isChosedDate, 'md:tw-bg-transparent tw-bg-yellow-green tw-rounded-full tw-w-8 tw-mx-auto': hasPosts }" >
       {{ dateOfCalendar.isDisable ? '' : dateOfCalendar.date.getDate() }}
     </span>
     <div class="tw-hidden md:tw-flex tw-flex-col tw-space-y-1">

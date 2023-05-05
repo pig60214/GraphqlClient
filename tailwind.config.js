@@ -13,6 +13,9 @@ module.exports = {
       fontSize: {
         '18xl': '16rem',
       },
+      backgroundColor: {
+        'yellow-green': '#6bb949',
+      }
     },
   },
   plugins: [],

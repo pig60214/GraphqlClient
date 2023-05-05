@@ -1,14 +1,12 @@
 <template>
   <div id="calendar" class="container">
-    <div class="row tw-items-center" :style="`height: ${height}px`">
-      <div class="col-xs-auto col-md-3 tw-p-4">
+    <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center" :style="`height: ${height}px`">
+      <div class="md:tw-w-1/4 tw-p-4">
         <calendar-body-month/>
         <PhotoCarousel/>
       </div>
-      <div class="col-xs-auto col-md-9 px-0">
-        <div id="calendarBody" class="container">
-          <router-view/>
-        </div>
+      <div class="md:tw-w-3/4 px-0">
+        <router-view/>
       </div>
     </div>
   </div>

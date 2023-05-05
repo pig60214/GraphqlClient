@@ -1,19 +1,28 @@
 <template>
   <div id="CalendarBodyDates"
-    class="container px-0 tw-divide-y tw-divide-black tw-bg-white md:tw-bg-transparent
-    md:tw-block tw-z-10 tw-fixed tw-right-0 tw-bottom-10 md:tw-static" :class="{ 'tw-hidden': !showInMobile, 'tw-animate-pulse': loading }">
+    class="px-0 tw-divide-y tw-divide-black
+    tw-bg-white tw-shadow-xl tw-w-full md:tw-bg-transparent md:tw-shadow-none md:tw-block
+    tw-z-10 tw-fixed tw-right-0 tw-bottom-16 md:tw-static" :class="{ 'tw-hidden': !showInMobile, 'tw-animate-pulse': loading }">
     <div class="row tw-divide-x tw-divide-black">
       <div class="col px-0 w-1-out-of-7" v-for="day, index in dayList" :key="index">{{ day }}</div>
     </div>
     <div class="row tw-divide-x tw-divide-black" v-for="week, index in weekListOfCurrentMonth" :key="index">
       <calendar-body-date v-for="dateOfCalendar, indexOfDate in week" :key="indexOfDate" :dateOfCalendar="getPosts(dateOfCalendar)"/>
     </div>
-    <div class="tw-block md:tw-hidden tw-flex tw-justify-end">
-      <button class="btn btn-primary" @click="goToAddMonth(-1)">Prev</button>
-      <button class="btn btn-primary" @click="goToAddMonth(1)">Next</button>
+    <div class="tw-block md:tw-hidden tw-flex tw-justify-end btn-group">
+      <button class="btn btn btn-secondary btn-sm" @click="goToAddMonth(-1)">
+        <SvgIcon :svgName="'icon-arrow-left'" :className="'tw-w-5 tw-h-5'" />
+      </button>
+      <button class="btn btn btn-secondary btn-sm" @click="goToAddMonth(1)">
+        <SvgIcon :svgName="'icon-arrow-right'" :className="'tw-w-5 tw-h-5'" />
+      </button>
     </div>
   </div>
-  <button class="btn btn-primary tw-inline-block md:tw-hidden tw-fixed tw-right-0 tw-bottom-0" @click="showInMobile = !showInMobile">Button</button>
+  <button class="tw-inline-block md:tw-hidden
+    btn btn-dark tw-rounded-full tw-w-12 tw-h-12
+    tw-fixed tw-bottom-2 tw-left-1/2 tw--ml-6" @click="showInMobile = !showInMobile">
+    <SvgIcon :svgName="'icon-calendar'" :className="'tw-w-5 tw-h-5'" />
+  </button>
 </template>
 
 <script lang="ts">
@@ -31,9 +40,10 @@ import useQueryPostApi from '@/composables/useQueryPostApi';
 import PostsQueryInput from '@/interface/graphql/PostsQueryInput';
 import useMonthPanel from '@/composables/useMonthPanel';
 import CalendarBodyDate from './CalendarBodyDate.vue';
+import SvgIcon from '../SvgIcon.vue';
 
 export default defineComponent({
-  components: { CalendarBodyDate },
+  components: { CalendarBodyDate, SvgIcon },
   name: 'CalendarBodyDates',
   setup() {
     const store = useStore();
