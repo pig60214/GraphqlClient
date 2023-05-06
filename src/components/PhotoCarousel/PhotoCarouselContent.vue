@@ -1,9 +1,9 @@
 <template>
-<div :style="`max-width: ${width}px`" class="tw-px-2">
+<div :style="`max-width: ${windowWidth}px`" class="tw-px-2">
   <Carousel :items-to-show="1" v-model="currentSlide" v-if="photos.length > 0" :autoplay="2000">
     <Slide v-for="photo, index in photos" :key="index">
       <div class="tw-bg-white tw-px-2 tw-pt-2 tw-pb-12">
-        <img :alt="photo.caption" :src="photo.path" :style="`max-height: ${height*0.5}px`">
+        <img :alt="photo.caption" :src="photo.path" :style="`max-height: ${windowHeight*0.5}px`">
         <h6 class="tw-mt-3">{{ photo.caption }}</h6>
       </div>
     </Slide>
@@ -35,6 +35,7 @@ import {
   Slide,
   Navigation,
 } from 'vue3-carousel';
+import useWindowSize from '@/composables/useWindowSize';
 
 export default defineComponent({
   name: 'PhotoCarouselContent',
@@ -47,14 +48,14 @@ export default defineComponent({
     const store = useStore();
     const photos = computed(() => store.state.photosInCarousel);
     const currentSlide = ref(0);
-    const height = window.innerHeight;
-    const width = window.innerWidth;
+
+    const { windowWidth, windowHeight } = useWindowSize();
 
     return {
       photos,
       currentSlide,
-      height,
-      width,
+      windowWidth,
+      windowHeight,
     };
   },
 });

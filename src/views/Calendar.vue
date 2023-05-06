@@ -1,6 +1,6 @@
 <template>
   <div id="calendar" class="container">
-    <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center" :style="`height: ${height}px`">
+    <div class="tw-flex tw-flex-col md:tw-flex-row tw-items-center" :style="`height: ${windowHeight}px`">
       <div class="md:tw-w-1/4">
         <calendar-body-month/>
         <div class="md:tw-block" :class="{ 'tw-hidden': !showPhotoInMobile }">
@@ -29,6 +29,7 @@ import {
 import { useStore } from '@/store';
 import { useRoute } from 'vue-router';
 import useTogglePhoto from '@/composables/useTogglePhoto';
+import useWindowSize from '@/composables/useWindowSize';
 import SvgIcon from '@/components/SvgIcon.vue';
 import PhotoCarousel from '../components/PhotoCarousel/PhotoCarousel.vue';
 import CalendarBodyMonth from '../components/Calendar/CalendarBodyMonth.vue';
@@ -72,7 +73,7 @@ export default defineComponent({
       },
     );
 
-    const height = window.innerHeight;
+    const { windowHeight } = useWindowSize();
 
     const { showPhotoInMobile, toggle } = useTogglePhoto();
     const buttonIcon = computed(() => {
@@ -94,7 +95,7 @@ export default defineComponent({
     );
 
     return {
-      height,
+      windowHeight,
       showPhotoInMobile,
       toggle,
       buttonIcon,
